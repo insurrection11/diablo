@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CActorUnit id="Diablo" parent="Zealot" unitName="Diablo">
+        <Model value="UnknownModel"/>
+        <BuildModel value="UnknownModel"/>
+        <PlacementModel value="UnknownModel"/>
+        <PlacementActorModel value="Diablo"/>
+        <HighlightTooltip value="Unit/Name/Diablo"/>
+    </CActorUnit>
+</Catalog>

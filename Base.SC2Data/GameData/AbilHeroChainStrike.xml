@@ -1,0 +1,2640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Catalog>
+    <CEffectSet id="DiabloBlackSoulstoneAdd25TokenSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd25TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd25DevilsDueTalentTokenCount"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloFireStompHellfireBurningDamageImpactSet">
+        <ValidatorArray value="NoJungleBenignTarget"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="DiabloFireStompHellfireDamage"/>
+    </CEffectSet>
+    <CEffectEnumArea id="DiabloFireStompHellfireSearch">
+        <ImpactLocation Value="SourceUnit"/>
+        <AreaArray Radius="2.5" Effect="DiabloFireStompHellfireBurningDamageImpactSet"/>
+        <SearchFlags index="ExtendByUnitRadius" value="1"/>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="DiabloShadowChargeDevastatingChargeArmorDebuffApplyBehavior">
+        <ValidatorArray value="TargetIsHero"/>
+        <Chance value="0"/>
+        <Behavior value="DiabloShadowChargeDevastatingChargeArmorDebuff"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloBlackSoulstoneSoulShieldApplyArmorBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloSoulShieldSpellArmor"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloSoulShieldInitialSet">
+        <EffectArray value="DiabloBlackSoulstoneSoulShieldApplyArmorBehavior"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="DiabloShadowChargeRemoveTerrainImpactStun">
+        <BehaviorLink value="DiabloShadowChargeTerrainImpactStun"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectRemoveBehavior id="DiabloOverpowerRemoveTargetStun">
+        <BehaviorLink value="DiabloOverpowerStun"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectCreateHealer id="FountainModifyEnergyCreateHealer">
+        <RechargeVitalFraction value="0.0156"/>
+    </CEffectCreateHealer>
+    <CEffectCreateHealer id="MoonwellDrinkL2ModifyHealthCreateHealer">
+        <RechargeVitalFraction value="0.0195"/>
+    </CEffectCreateHealer>
+    <CEffectApplyBehavior id="DiabloShadowChargeSacrificialSoulArmorApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeSacrificialSoulArmorIncrease"/>
+    </CEffectApplyBehavior>
+    <CEffectModifyUnit id="DiabloFireStompImpactDummy"/>
+    <CEffectSwitch id="DiabloLifeLeechCreateHealerSwitch">
+        <CaseArray Validator="DiabloHasGTE100BlackSoulstoneTokens" Effect="DiabloLifeLeechImprovedCreateHealer"/>
+        <CaseDefault value="DiabloLifeLeechCreateHealer"/>
+    </CEffectSwitch>
+    <CEffectSet id="DiabloShadowChargeInitialSet">
+        <ValidatorArray value="CasterNotRooted"/>
+        <ValidatorArray value="CasterNotSilenced"/>
+        <ValidatorArray value="TargetisWalkableOrStructureOrPseudoStructure"/>
+        <ValidatorArray value="TargetIsEnemy"/>
+        <EffectArray value="DiabloShadowChargeRemoveTerrainImpactStun"/>
+        <EffectArray value="DiabloOverpowerRemoveTargetStun"/>
+        <EffectArray value="DiabloShadowChargeUnitStructureSwitch"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeLaunchSet">
+        <EffectArray value="DiabloShadowChargeCasterPreImpactUnitApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeFullDurationCasterBehaviorApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeRevealPersistent"/>
+        <EffectArray value="DiabloMalevolenceApplyBehavior"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloShadowChargeRevealPersistent">
+        <WhichLocation Value="TargetUnit"/>
+        <TimeScaleSource Value="Caster"/>
+        <Flags index="Channeled" value="1"/>
+        <RevealRadius value="1"/>
+        <RevealFlags index="Unfog" value="1"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyBehavior id="DiabloShadowChargeCasterPreImpactUnitApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeCasterPreUnitImpactBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloShadowChargeFullDurationCasterBehaviorApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeFullDurationCasterBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectSwitch id="DiabloShadowChargeUnitStructureSwitch">
+        <CaseArray Validator="DiabloShadowChargeTargetIsStructure" Effect="DiabloShadowChargeStructureTargetLaunchMissile"/>
+        <CaseArray Validator="TargetIsPseudoStructure" Effect="DiabloShadowChargeStructureTargetLaunchMissile"/>
+        <CaseDefault value="DiabloShadowChargeCasterLaunchMissile"/>
+    </CEffectSwitch>
+    <CEffectRemoveBehavior id="DiabloShadowChargeCasterPreImpactUnitRemoveBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloShadowChargeCasterPreUnitImpactBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectSet id="DiabloShadowChargeUnitImpactedSet">
+        <EffectArray value="DiabloShadowChargeTargetImpactedApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeUnitImpactSwitch"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeMissileFinishSet">
+        <EffectArray value="DiabloShadowChargeUnpathableReLaunchDelayPersistent"/>
+        <EffectArray value="DiabloShadowChargeCasterPreImpactUnitRemoveBehavior"/>
+        <EffectArray value="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloShadowChargeUnpathableReLaunchDelayPersistent">
+        <InitialDelay value="0.125"/>
+        <FinalEffect value="HeroGenericMissileInterruptLaunchMissile"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloShadowChargeStructureTargetLaunchMissileFinishSet">
+        <EffectArray value="DiabloShadowChargeCasterPreImpactUnitRemoveBehavior"/>
+        <EffectArray value="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+        <EffectArray value="DiabloShadowChargeImmoveableUnitImpactedSet"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeImmoveableUnitImpactedSet">
+        <ValidatorArray value="TargetWithin2point5RangeofCaster"/>
+        <ValidatorArray value="DiabloShadowChargeHasImpactedTargetUnitBehavior"/>
+        <ValidatorArray value="CasterNotDeadOrStunnedOrRootedOrPolymorphedOrStasisOrDazedOrFearedExceptTimeStop"/>
+        <EffectArray value="DiabloShadowChargeUnitImpactDamage"/>
+        <EffectArray value="DiabloDamageTalentSet"/>
+        <EffectArray value="DiabloShadowChargePostImpactCasterMovementSpeedApplyBehavior"/>
+        <EffectArray value="CameraShakeMediumTauntingTotemSet"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="CameraShakeMediumCasterDummySet"/>
+    </CEffectSet>
+    <CEffectSwitch id="DiabloShadowChargeUnitImpactSwitch">
+        <CaseArray Validator="DiabloShadowChargeNoImpactedTargetUnitBehavior" Effect="DiabloShadowChargeFailsafeSet"/>
+        <CaseArray Validator="TargetWithin2point5RangeofCaster" Effect="DiabloShadowChargeMoveableUnitImpactedSet"/>
+        <CaseDefault value="DiabloShadowChargeFailsafeSet"/>
+    </CEffectSwitch>
+    <CEffectApplyBehavior id="DiabloShadowChargeTargetImpactedApplyBehavior">
+        <ValidatorArray value="CasterNotDazedOrDeadOrRootedOrStasisOrStunned"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeTargetImpactedBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloShadowChargeFailsafeSet">
+        <EffectArray value="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+        <EffectArray value="DiabloShadowChargeNotUnitImpactedRefund"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeMoveableUnitImpactedSet">
+        <ValidatorArray value="TargetWithin2point5RangeofCaster"/>
+        <ValidatorArray value="DiabloShadowChargeHasImpactedTargetUnitBehavior"/>
+        <ValidatorArray value="CasterNotDeadOrStunnedOrRootedOrPolymorphedOrStasisOrDazedOrFearedExceptTimeStop"/>
+        <EffectArray value="DiabloShadowChargeUnitImpactDamage"/>
+        <EffectArray value="DiabloDamageTalentSet"/>
+        <EffectArray value="DiabloShadowChargePostImpactCasterMovementSpeedApplyBehavior"/>
+        <EffectArray value="CameraShakeMediumTauntingTotemSet"/>
+        <EffectArray value="DiabloShadowChargeImpactUnitKnockbackSwitch"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="CameraShakeMediumCasterDummySet"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloShadowChargeFullDurationCasterBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectModifyUnit id="DiabloShadowChargeNotUnitImpactedRefund">
+        <ValidatorArray value="DiabloShadowChargeCasterWithin2unitsofOrigin"/>
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloShadowCharge,Execute" CooldownOperation="Set"/>
+        <VitalArray index="Energy">
+            <Change value="60"/>
+        </VitalArray>
+    </CEffectModifyUnit>
+    <CEffectSwitch id="DiabloShadowChargeImpactUnitKnockbackSwitch">
+        <CaseArray Validator="TargetIsUnstoppable" Effect="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+        <CaseArray Validator="TargetIsNotGroundMover" Effect="DiabloShadowChargeImpactMissileUnitKnockbackSet"/>
+        <CaseArray Validator="DiabloShadowChargeTargetNotWithin30Degrees" Effect="DiabloShadowChargeFailsafeSet"/>
+        <CaseDefault value="DiabloShadowChargeTargetKnockbackLocationPersistent"/>
+    </CEffectSwitch>
+    <CEffectApplyBehavior id="DiabloShadowChargePostImpactCasterMovementSpeedApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeSelfMovementSpeedBuff"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloShadowChargeImpactMissileUnitKnockbackSet">
+        <EffectArray value="DiabloShadowChargeMissileImpactedDelayedKnockbackLocationPersistent"/>
+        <EffectArray value="DiabloShadowChargeTargetRedirectMissile"/>
+        <EffectArray value="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloShadowChargeMissileImpactedDelayedKnockbackLocationPersistent">
+        <ValidatorArray value="TargetNotStasisCategory"/>
+        <ValidatorArray value="TargetNotUnstoppableCategory"/>
+        <ValidatorArray value="DiabloShadowChargeTargetWithin30Degrees"/>
+        <OffsetVectorStartLocation Effect="DiabloShadowChargeInitialSet" Value="OriginPoint"/>
+        <PeriodCount value="1"/>
+        <PeriodicValidator value="DiabloShadowChargeTargetWithin30Degrees"/>
+        <PeriodicEffectArray value="DiabloShadowChargeKnockbackInitialSet"/>
+        <PeriodicPeriodArray value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyBehavior id="DiabloShadowChargeUnitImpactStunApplyBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeUnitImpactStun"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloShadowChargeKnockbackInitialSet">
+        <EffectArray value="DiabloShadowChargeCasterPostUnitImpactApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeCasterPostChargeChannelBehaviorApply"/>
+        <EffectArray value="DiabloShadowChargeUnitImpactStunApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeTargetImpactedMoveSpeedApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeKnockbackPersistent"/>
+        <EffectArray value="DiabloShadowChargeDiabloKnockbackPersistent"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloShadowChargeCasterPostUnitImpactApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeCasterPostUnitImpactChargeBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloShadowChargeCasterPostChargeChannelBehaviorApply">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeCasterPostChargeBehaviorChannel"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloDiabloShadowChargeApplyTargetRootedMoveSpeedApplyBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeTargetRootedMoveSpeedIncrease"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyForce id="DiabloShadowChargeApplyDiabloKnockbackForce">
+        <WhichLocation Effect="DiabloShadowChargeKnockbackInitialSet" Value="TargetPoint"/>
+        <WhichUnit Effect="DiabloShadowChargeInitialSet" Value="Caster"/>
+        <Amount value="-60"/>
+    </CEffectApplyForce>
+    <CEffectCreatePersistent id="DiabloShadowChargeKnockbackPathingCheckPersistent">
+        <WhichLocation Effect="DiabloShadowChargeUnitImpactedSet" Value="TargetUnit"/>
+        <OffsetVectorEndLocation Effect="DiabloShadowChargeKnockbackInitialSet"/>
+        <InitialEffect value="DiabloShadowChargeTargetKnockbackForce"/>
+        <PeriodCount value="9"/>
+        <PeriodicEffectArray value="DiabloShadowChargeKnockbackCheckBasePathableSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeSmallHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeSmallHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeSmallHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeSmallHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeBigHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeBigHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeBigHeroPathingCheckSet"/>
+        <PeriodicEffectArray value="DiabloShadowChargeBigHeroPathingCheckSet"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyForce id="DiabloShadowChargeTargetKnockbackForce">
+        <WhichLocation Effect="DiabloShadowChargeKnockbackInitialSet" Value="TargetPoint"/>
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Amount value="-60"/>
+    </CEffectApplyForce>
+    <CEffectApplyBehavior id="DiabloShadowChargeTargetImpactedMoveSpeedApplyBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeTargetMoveSpeedBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="DiabloShadowChargeKnockbackPersistent">
+        <InitialEffect value="DiabloShadowChargeKnockbackPathingCheckPersistent"/>
+        <PeriodCount value="3"/>
+        <PeriodicValidator value="DiabloShadowChargeDiabloKnockbackValidator"/>
+        <PeriodicEffectArray value="DiabloShadowChargeKnockbackPathingCheckPersistent"/>
+        <PeriodicPeriodArray value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectCreatePersistent id="DiabloShadowChargeDiabloKnockbackPersistent">
+        <WhichLocation Value="CasterUnit"/>
+        <InitialEffect value="DiabloShadowChargeDiabloKnockbackPersistentInitialSet"/>
+        <PeriodCount value="3"/>
+        <PeriodicValidator value="DiabloShadowChargeDiabloKnockbackValidator"/>
+        <PeriodicEffectArray value="DiabloShadowChargeApplyDiabloKnockbackForce"/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <FinalEffect value="DiabloShadowChargeDiabloKnockbackPersistentFinalSet"/>
+    </CEffectCreatePersistent>
+    <CEffectRedirectMissile id="DiabloShadowChargeTargetRedirectMissile"/>
+    <CEffectCreatePersistent id="DiabloShadowChargeTargetKnockbackLocationPersistent">
+        <ValidatorArray value="TargetNotStasis"/>
+        <ValidatorArray value="TargetNotUnstoppableCategory"/>
+        <ValidatorArray value="DiabloShadowChargeTargetWithin30Degrees"/>
+        <OffsetVectorStartLocation Effect="DiabloShadowChargeInitialSet" Value="OriginPoint"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="DiabloShadowChargeKnockbackInitialSet"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloShadowChargeKnockbackCheckBasePathableSet">
+        <ValidatorArray value="DiabloShadowChargeLocationIsNotWalkableOrTargetHasHitPathingBlocker"/>
+        <EffectArray value="DiabloShadowChargeTerrainImpactStunApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetKnockbackBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetMovespeedBehaviot"/>
+        <EffectArray value="DiabloShadowChargeApplyStunLimiter"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeBigHeroPathingCheckSet">
+        <ValidatorArray value="DiabloShadowChargeLocationIsNotWalkableOrTargetHasHitPathingBlocker"/>
+        <ValidatorArray value="DiabloShadowChargeTargetIsFat"/>
+        <EffectArray value="DiabloShadowChargeTerrainImpactStunApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetKnockbackBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetMovespeedBehaviot"/>
+        <EffectArray value="DiabloShadowChargeApplyStunLimiter"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloShadowChargeSmallHeroPathingCheckSet">
+        <ValidatorArray value="DiabloShadowChargeLocationIsNotWalkableOrTargetHasHitPathingBlocker"/>
+        <ValidatorArray value="DiabloShadowChargeTargetIsNotFat"/>
+        <EffectArray value="DiabloShadowChargeTerrainImpactStunApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetKnockbackBehavior"/>
+        <EffectArray value="DiabloShadowChargeRemoveTargetMovespeedBehaviot"/>
+        <EffectArray value="DiabloShadowChargeApplyStunLimiter"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="DiabloShadowChargeRemoveTargetMovespeedBehaviot">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <BehaviorLink value="DiabloShadowChargeTargetMoveSpeedBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectApplyBehavior id="DiabloShadowChargeTerrainImpactStunApplyBehavior">
+        <ValidatorArray index="0" value="DiabloShadowChargeTargetDoesNotHaveStunLimiter"/>
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeTerrainImpactStun"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="DiabloShadowChargeRemoveTargetKnockbackBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <BehaviorLink value="DiabloShadowChargeUnitImpactStun"/>
+    </CEffectRemoveBehavior>
+    <CEffectApplyBehavior id="DiabloShadowChargeApplyStunLimiter">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeStunLimiter"/>
+    </CEffectApplyBehavior>
+    <CEffectIssueOrder id="DiabloShadowChargeIssueAttackOrder">
+        <ValidatorArray value="CasterHasLE1Orders"/>
+        <WhichUnit Effect="DiabloShadowChargeInitialSet" Value="Caster"/>
+        <Abil value="attack"/>
+        <Target Effect="DiabloShadowChargeInitialSet" Value="TargetUnit"/>
+    </CEffectIssueOrder>
+    <CEffectSet id="DiabloShadowChargeTerrainImpactSet">
+        <EffectArray value="DiabloShadowChargeTerrainImpactDamage"/>
+        <EffectArray value="DiabloDamageTalentSet"/>
+        <EffectArray value="DiabloShadowChargeDevastatingChargeArmorDebuffApplyBehavior"/>
+        <EffectArray value="DiabloShadowChargeDevastatingChargeTalentIncreaseTokenCount"/>
+        <EffectArray value="DiabloShadowChargeSacrificialSoulApplyArmorSwitch"/>
+        <EffectArray value="DiabloShadowChargeSacrificialSoulAddTokenSet"/>
+        <EffectArray value="DiabloShadowChargeOverpowerCrueltyAttackSpeedApplyBehavior"/>
+        <EffectArray value="DiabloFireStompEternalFlamesFireStompCooldownReduction"/>
+    </CEffectSet>
+    <CEffectSwitch id="DiabloShadowChargeSacrificialSoulApplyArmorSwitch">
+        <ValidatorArray value="TargetIsHero"/>
+        <Chance value="0"/>
+        <CaseArray Validator="DiabloHasGTE100BlackSoulstoneTokens" Effect="DiabloShadowChargeSacrificialSoulImprovedArmorApplyBehavior"/>
+        <CaseDefault value="DiabloShadowChargeSacrificialSoulArmorApplyBehavior"/>
+    </CEffectSwitch>
+    <CEffectApplyBehavior id="DiabloShadowChargeSacrificialSoulImprovedArmorApplyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeSacrificialSoulImprovedArmorIncrease"/>
+    </CEffectApplyBehavior>
+    <CEffectModifyPlayer id="DiabloBlackSoulstoneSoulShieldModifyPlayerCooldown">
+        <WhichPlayer Value="Caster"/>
+        <Cost Abil="DiabloBlackSoulstoneSoulShield">
+            <Cooldown>
+                <Link value="Abil/DiabloBlackSoulstoneSoulShield"/>
+                <Location value="Player"/>
+                <Operation value="Add"/>
+                <TimeUse value="-1"/>
+            </Cooldown>
+        </Cost>
+    </CEffectModifyPlayer>
+    <CEffectSet id="DiabloShadowChargeSacrificialSoulAddTokenSet">
+        <ValidatorArray value="TargetIsHero"/>
+        <Chance value="0"/>
+        <EffectArray value="DiabloBlackSoulstoneSacrificialSoulAdd10TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneSacrificialSoulDevilsDueAdd10TokenCount"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloShadowChargeOverpowerCrueltyAttackSpeedApplyBehavior">
+        <ValidatorArray index="0" value="TargetIsHero"/>
+        <ValidatorArray value="TargetNotUnstoppable"/>
+        <Chance value="0"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeOverpowerCrueltyAttackSpeedBuff"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloBlackSoulstoneFeastOnFearApplyHealerBehavior">
+        <ValidatorArray index="0" value="TargetNotUnstoppable"/>
+        <ValidatorArray value="TargetIsHero"/>
+        <Chance value="0"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloBlackSoulstoneFeastOnFearPeriodicHealer"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="DiabloOverpowerInitialChannelCreatePersistent">
+        <ValidatorArray value="NotVehicle"/>
+        <ValidatorArray value="TargetIsGroundMover"/>
+        <WhichLocation Value="TargetUnit"/>
+        <TimeScaleSource Value="Caster"/>
+        <Flags index="Channeled" value="1"/>
+        <InitialEffect value="DiabloOverpowerInitialSet"/>
+        <ExpireEffect value="OverpowerImpactSet"/>
+        <FinalEffect value="DiabloOverpowerFinalSet"/>
+        <PeriodCount value="8"/>
+        <PeriodicValidator value="DiabloOverpowerCasterAndTargetCombine"/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicEffectArray value="DiabloOverpowerPathableSwitch"/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicEffectArray value="DiabloOverpowerCasterSetFacingTriggerTriggerDummy"/>
+        <PeriodicEffectArray value=""/>
+        <PeriodicPeriodArray value="0.0625"/>
+        <RevealRadius value="1"/>
+        <RevealFlags index="Unfog" value="1"/>
+        <TeleportTrack index="Source" value="1"/>
+        <TeleportTrack index="Target" value="1"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloOverpowerInitialSet">
+        <ValidatorArray value="TargetIsDisplaceableCombine"/>
+        <EffectArray value="DiabloOverpowerPathableBehindSet"/>
+        <EffectArray value="DiabloOverpowerApplyCasterBehavior"/>
+        <EffectArray value="DiabloOverpowerApplyTargetBehavior"/>
+        <EffectArray value="DiabloMalevolenceApplyBehavior"/>
+        <EffectArray value="DiabloBlackSoulstoneFeastOnFearApplyHealerBehavior"/>
+        <EffectArray value="DiabloFireStompEternalFlamesFireStompCooldownReduction"/>
+        <EffectArray value="DiabloShadowChargeOverpowerCrueltyAttackSpeedApplyBehavior"/>
+        <EffectArray value="DiabloOverpowerDominationMasteryCooldownReduction"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloOverpowerPathableBehindSet">
+        <EffectArray value="DiabloOverpowerPathableBehindOffset"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloOverpowerPathableBehindOffset">
+        <WhichLocation Value="CasterPoint"/>
+        <InitialEffect value="DiabloOverpowerPathableBehindApplyBehavior"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyBehavior id="DiabloOverpowerPathableBehindApplyBehavior">
+        <ValidatorArray index="0" value="DiabloOverpowerTargetPathable"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloOverpowerPathableBehind"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloOverpowerApplyCasterBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloOverpowerCasterBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloOverpowerApplyTargetBehavior">
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectSwitch id="DiabloOverpowerPathableSwitch">
+        <CaseArray Validator="TargetHasDiabloOverpowerPathableBehind" Effect="DiabloOverpowerLaunchTargetMissilePathable"/>
+        <CaseDefault value="DiabloOverpowerLaunchTargetMissileUnpathableSet"/>
+    </CEffectSwitch>
+    <CEffectSet id="DiabloOverpowerLaunchTargetMissileUnpathableSet">
+        <EffectArray value="DiabloOverpowerLaunchTargetMissileUnpathable"/>
+        <EffectArray value="DiabloOverpowerLaunchCasterMissileUnpathable"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="DiabloOverpowerCasterSetFacingTriggerTriggerDummy"/>
+    <CEffectSet id="DiabloOverpowerFinalSet">
+        <EffectArray value="DiabloOverpowerAbortTarget"/>
+        <EffectArray value="DiabloOverpowerAbortCaster"/>
+        <EffectArray value="DiabloOverpowerRemoveTargetBehavior"/>
+        <EffectArray value="DiabloOverpowerRemoveCasterBehavior"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloOverpowerTargetBehaviorFinalSet">
+        <EffectArray value="HeroRemovePushPullDebuffs"/>
+        <EffectArray value="HeroGenericMissileInterruptLaunchMissileSourceDelay"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="DiabloOverpowerRemoveTargetBehavior">
+        <BehaviorLink value="DiabloOverpowerTargetBehavior"/>
+    </CEffectRemoveBehavior>
+    <CEffectRemoveBehavior id="DiabloOverpowerRemoveCasterBehavior">
+        <BehaviorLink value="DiabloOverpowerCasterBehavior"/>
+        <WhichUnit Value="Caster"/>
+    </CEffectRemoveBehavior>
+    <CEffectSet id="OverpowerImpactSet">
+        <EffectArray value="DiabloOverpowerDamage"/>
+        <EffectArray value="DiabloOverpowerApplyStunToTarget"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="DiabloOverpowerModifyWeaponCooldown"/>
+        <EffectArray value="CameraShakeMediumCasterDummySet"/>
+        <EffectArray value="CameraShakeMediumTauntingTotemSet"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloOverpowerApplyStunToTarget">
+        <Behavior value="DiabloOverpowerStun"/>
+    </CEffectApplyBehavior>
+    <CEffectIssueOrder id="DiabloOverpowerIssueAttackOrder">
+        <ValidatorArray value="CasterHasLE1Orders"/>
+        <WhichUnit Effect="DiabloOverpowerInitialChannelCreatePersistent" Value="Caster"/>
+        <Abil value="attack"/>
+        <CmdFlags index="Queued" value="1"/>
+        <Target Effect="DiabloOverpowerInitialChannelCreatePersistent" Value="TargetUnit"/>
+    </CEffectIssueOrder>
+    <CEffectModifyUnit id="DiabloOverpowerModifyWeaponCooldown">
+        <ImpactUnit Effect="DiabloOverpowerInitialSet" Value="Caster"/>
+        <Weapon Weapon="HeroDiablo" CooldownOperation="Set" CooldownAmount="0.4125"/>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="DiabloFireStompEternalFlamesFireStompCooldownReduction">
+        <ValidatorArray value="TargetIsHero"/>
+        <ValidatorArray value="TargetNotUnstoppable"/>
+        <Chance value="0"/>
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloFireStomp,Execute" CooldownOperation="Set"/>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="DiabloOverpowerDominationMasteryCooldownReduction">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloShadowCharge,Execute" CooldownOperation="Set"/>
+        <ValidatorArray value="HasDiabloDomination"/>
+    </CEffectModifyUnit>
+    <CEffectRedirectMissile id="ArtanisBladeDashPhasePrismRedirectMissile">
+        <Movers Link="ArtanisPhasePrismTravelMissile"/>
+    </CEffectRedirectMissile>
+    <CEffectRemoveBehavior id="DiabloMalevolenceRemoveBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloMalevolence"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectSet id="DiabloMalevolenceSet">
+        <Chance value="0"/>
+        <EffectArray value="DiabloMalevolenceDamage"/>
+        <EffectArray value="DiabloMalevolenceRemoveBehavior"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloMalevolenceApplyBehavior">
+        <Chance value="0"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloMalevolence"/>
+    </CEffectApplyBehavior>
+    <CEffectSwitch id="DiabloFireStompDamageSwitch">
+        <CaseArray Validator="HasDiabloSoulsToTheFlame" Effect="FireStompSoulsToTheFlameDamage"/>
+        <CaseDefault value="FireStompDamage"/>
+    </CEffectSwitch>
+    <CEffectSwitch id="DiabloFireStompReturnDamageSwitch">
+        <CaseArray Validator="HasDiabloSoulsToTheFlame" Effect="FireStompReturnSoulsToTheFlameDamage"/>
+        <CaseDefault value="FireStompReturnDamage"/>
+    </CEffectSwitch>
+    <CEffectModifyUnit id="DiabloApocalypseDyingBreathSetCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloApocalypse,Execute" CooldownOperation="Set" CooldownTimeUse="5"/>
+    </CEffectModifyUnit>
+    <CEffectSwitch id="DiabloApocalypseDyingBreathSwitch">
+        <ValidatorArray value="TargetIsHero"/>
+        <Chance value="0"/>
+        <CaseArray Validator="DiabloApocalypseCooldownGTE5ANDApocalypseCooldownLTE30" Effect="DiabloApocalypseDyingBreathSetCooldown"/>
+        <CaseDefault value="DiabloApocalypseDyingBreathModifyCooldown"/>
+    </CEffectSwitch>
+    <CEffectSet id="DiabloBlackSoulstoneSacrificialSoulAdd10TokenCountSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneSacrificialSoulAdd10TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneSacrificialSoulDevilsDueAdd10TokenCount"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloBlackSoulstoneAdd5TokenCountSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd5TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneDevilsDueAdd5TokenCount"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="DiabloApocalypseDyingBreathModifyCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloApocalypse,Execute" CooldownOperation="Add" CooldownTimeUse="-25"/>
+    </CEffectModifyUnit>
+    <CEffectApplyBehavior id="DiabloFireStompApplyDebilitatingFlamesDamageReduction">
+        <Behavior value="DiabloFireStompDebilitatingFlamesDamageReduction"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloFireStompDebilitatingFlamesSet">
+        <ValidatorArray value="TargetIsHero"/>
+        <ValidatorArray value="TargetNotUnstoppable"/>
+        <Chance value="0"/>
+        <EffectArray value="DiabloFireStompApplyDebilitatingFlamesTalentSlow"/>
+        <EffectArray value="DiabloFireStompApplyDebilitatingFlamesDamageReduction"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloFireStompHellfireImpactSet">
+        <Chance value="0"/>
+        <EffectArray value="DiabloFireStompHellfireApplySpellPowerBehavior"/>
+        <ValidatorArray value="TargetIsHero"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloLifeLeechBlackSoulstoneAddTokenSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneLifeLeechAddTokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneLifeLeechDevilsDueAddTokenCount"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloFireStompHellfireApplySpellPowerBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloFireStompHellfireSpellPower"/>
+    </CEffectApplyBehavior>
+    <CEffectAddTrackedUnit id="DiabloFireStompImpactAddTrackedUnit">
+        <BehaviorLink value="DiabloFireStompMarkerMissileTracker"/>
+        <TrackerUnit Value="Source"/>
+        <TrackedUnit Value="Target"/>
+    </CEffectAddTrackedUnit>
+    <CEffectApplyBehavior id="DiabloFireStompMissileMarkerTrackerApplyBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="DiabloFireStompMarkerMissileTracker"/>
+    </CEffectApplyBehavior>
+    <CEffectEnumTrackedUnits id="DiabloApocalypseEnumerateTrackedUnits">
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+        <BehaviorLink value="AllHeroicUnitsTrackingBehavior"/>
+        <Effect value="ApocalypseCreatePersistent"/>
+    </CEffectEnumTrackedUnits>
+    <CEffectLaunchMissile id="DiabloBlackSoulstoneHeroTargetLaunchMissile">
+        <ValidatorArray index="0" value="TargetIsHero"/>
+        <ValidatorArray value="TargetWithin20Range"/>
+        <ValidatorArray value="CasterNotUsingVehicle"/>
+        <LaunchLocation Value="TargetUnit"/>
+        <ImpactLocation Value="CasterUnit"/>
+        <ImpactEffect value="DiabloBlackSoulstoneDummyImpactEffect"/>
+        <AmmoUnit value="DiabloBlackSoulstoneHeroMissile"/>
+        <ImpactRange value="0.5"/>
+    </CEffectLaunchMissile>
+    <CEffectModifyUnit id="DiabloBlackSoulstoneDummyImpactEffect"/>
+    <CEffectLaunchMissile id="DiabloBlackSoulstoneNonHeroTargetLaunchMissile">
+        <ValidatorArray index="0" value="TargetNotHero"/>
+        <ValidatorArray value="TargetWithin20Range"/>
+        <ValidatorArray value="CasterNotUsingVehicle"/>
+        <LaunchLocation Value="TargetUnit"/>
+        <ImpactLocation Value="CasterUnit"/>
+        <ImpactEffect value="DiabloBlackSoulstoneDummyImpactEffect"/>
+        <AmmoUnit value="DiabloBlackSoulstoneNonHeroMissile"/>
+        <ImpactRange value="0.5"/>
+    </CEffectLaunchMissile>
+    <CEffectSet id="DiabloBlackSoulstoneAdd10TokenSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd10TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd10DevilsDueTalentTokenCount"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloBlackSoulstoneAdd1TokenSet">
+        <ValidatorArray value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <EffectArray value="DiabloBlackSoulstoneAddTokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneAddDevilsDueTalentTokenCount"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloBlackSoulstoneRemove100TokenSet">
+        <EffectArray value="DiabloBlackSoulstoneRemove100TokenCount"/>
+        <EffectArray value="DiabloBlackSoulstoneRemove100DevilsDueTalentTokenCount"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloBlackSoulstoneHeroKillTokenPersistent">
+        <WhichLocation Value="TargetUnit"/>
+        <PeriodCount value="10"/>
+        <PeriodicValidator value="DiabloSourceHasLessThan100BlackSoulstoneTokens"/>
+        <PeriodicEffectArray value="DiabloBlackSoulstoneAddTokenCount"/>
+        <PeriodicPeriodArray value="0"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloFireStompLaunchSet">
+        <EffectArray value="FireStompApplyMissileScanDelayPersistent"/>
+        <EffectArray value="DiabloFireStompMissileMarkerTrackerApplyBehavior"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="DiabloHellgateApocalypseCreatePersistent">
+        <InitialEffect value="ApocalypseRevealer"/>
+        <ExpireDelay value="1.75"/>
+        <ExpireEffect value="ApocalypseSearch"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloHeroWeaponLifeLeechTalentSet">
+        <ValidatorArray value="TargetIsHero"/>
+        <ValidatorArray value="CasterNotBlindedAndTargetNotEvading"/>
+        <EffectArray value="DiabloLifeLeechBlackSoulstoneAddTokenSet"/>
+        <EffectArray value="DiabloLifeLeechCreateHealerSwitch"/>
+        <Chance value="0"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="DiabloLightningBreathInterruptCooldownRefund">
+        <ValidatorArray value="CasterisDeadorStasis"/>
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloLightningBreath,Execute" CooldownOperation="Set" CooldownTimeUse="10"/>
+    </CEffectModifyUnit>
+    <CEffectModifyUnit id="DiabloLightningBreathApplyCancelCooldown">
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="LightningBreathCancel,Execute" CooldownOperation="Set" CooldownTimeUse="0.625"/>
+    </CEffectModifyUnit>
+    <CEffectApplyBehavior id="DiabloLightningBreathApplyChanneledCoolup">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloLightningBreathChanneledCoolup"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloLightningBreathInitialSet">
+        <EffectArray value="DiabloLightningBreathApplyCancelCooldown"/>
+        <EffectArray value="DiabloLightningBreathApplyUnstoppableBehavior"/>
+        <EffectArray value="DiabloLightningBreathApplyChanneledCoolup"/>
+    </CEffectSet>
+    <CEffectSet id="DiabloLightningBreathSearchImpactSet">
+        <EffectArray value="DiabloLightningBreathApplyTargetBehavior"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="DiabloLordOfTerrorModifyUnitDummy"/>
+    <CEffectSet id="DiabloLordOfTerrorImpactSet">
+        <EffectArray value="DiabloLordOfTerrorDamage"/>
+        <EffectArray value="DiabloLordOfTerrorModifyUnitDummy"/>
+        <EffectArray value="DiabloBlackSoulstoneAdd5TokenCountSet"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+    </CEffectSet>
+    <CEffectEnumArea id="DiabloLordOfTerrorSearch">
+        <ValidatorArray value="DiabloLordOfTerrorEnemyProximityValidator"/>
+        <ImpactLocation Value="CasterPoint"/>
+        <AreaArray Radius="6" Effect="DiabloLordOfTerrorImpactSet"/>
+        <RevealerParams HeightMap="Ground" Duration="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectRemoveBehavior id="DiabloLightningBreathRemoveUnstoppableBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloLightningBreathUnstoppable"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectCreatePersistent id="DiabloLightningBreathOffsetPersistent">
+        <WhichLocation Value="CasterUnit"/>
+        <OffsetVectorEndLocation Value="CasterUnit"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="DiabloLightningBreathSearchArea"/>
+        <PeriodicPeriodArray value="0"/>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="DiabloLightningBreathSearchArea">
+        <ImpactLocation Value="TargetPoint"/>
+        <AreaArray RectangleWidth="3" RectangleHeight="12.5" Effect="DiabloLightningBreathSearchImpactSet"/>
+        <RevealerParams Duration="0.75" ShapeExpansion="1">
+            <RevealFlags index="Unfog" value="1"/>
+        </RevealerParams>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="DiabloLightningBreathApplyUnstoppableBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloLightningBreathUnstoppable"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="DiabloLightningBreathInitialPersistent">
+        <TimeScaleSource Value="Caster"/>
+        <Flags index="Channeled" value="1"/>
+        <InitialEffect value="DiabloLightningBreathInitialSet"/>
+        <ExpireEffect value="DiabloLightningBreathStartBreathSet"/>
+        <PeriodCount value="8"/>
+        <PeriodicValidator value="DoesNotHaveChanneledAbilityFullStopBehavior"/>
+        <PeriodicPeriodArray value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloLightningBreathStartBreathSet">
+        <EffectArray value="DiabloLightningBreathApplyControllerBehavior"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloLightningBreathApplyControllerBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloLightningBreathController"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="DiabloBlackSoulstoneResurrectDummyPersistent"/>
+    <CEffectApplyBehavior id="FireStompApplyDummyBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="FireStompDummyBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="FireStompMissileImpactSet">
+        <EffectArray value="FireStompReturnCreatePersistent"/>
+        <EffectArray value="FireStompMissileMasterySuicideDelay"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="FireStompMissileMasterySuicideDelay">
+        <WhichLocation Value="SourceUnit"/>
+        <InitialEffect value="FireStompMissileMasterySuicide"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyBehavior id="DiabloFireStompApplyReturnMissilePause">
+        <WhichUnit Value="Source"/>
+        <Behavior value="DiabloFireStompReturnMissilePause"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloLightningBreathDummy"/>
+    <CEffectSet id="DiabloLightningBreathDummyEffect"/>
+    <CEffectSet id="DiabloFireStompInitialSet">
+        <EffectArray value="FireStompInitialPersistent"/>
+        <EffectArray value="FireStompApplyDummyBehavior"/>
+        <EffectArray value="DiabloMalevolenceApplyBehavior"/>
+        <TargetLocationType value="Point"/>
+    </CEffectSet>
+    <CEffectCreatePersistent id="FireStompApplyMissileScanDelayPersistent">
+        <WhichLocation Value="TargetUnit"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="FireStompApplySearchBehavior"/>
+        <PeriodicPeriodArray value="0.0625"/>
+    </CEffectCreatePersistent>
+    <CEffectRemoveBehavior id="DiabloLightningBreathRemoveControllerBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloLightningBreathController"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectCreatePersistent id="FireStompInitialPersistent">
+        <WhichLocation Value="SourcePoint"/>
+        <InitialEffect value="CameraShakeMediumCasterDummySet"/>
+        <PeriodCount value="5"/>
+        <PeriodicEffectArray value="FireStompLaunchPersistent"/>
+    </CEffectCreatePersistent>
+    <CEffectApplyBehavior id="FireStompApplySearchBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="FireStompMissileSearch"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="FireStompReturnApplySearchBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="FireStompReturnMissileSearch"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloFireStompReturnMissileLaunchSet">
+        <EffectArray value="FireStompReturnApplySearchBehavior"/>
+        <EffectArray value="DiabloFireStompApplyReturnMissileSuicideBehavior"/>
+        <EffectArray value="DiabloFireStompMissileMarkerTrackerApplyBehavior"/>
+    </CEffectSet>
+    <CEffectSet id="FireStompImpactSet">
+        <ValidatorArray value="DiabloTargetNotInFireStompUnitTracker"/>
+        <EffectArray value="DiabloFireStompDamageSwitch"/>
+        <EffectArray value="FireStompSuicideRemove"/>
+        <EffectArray value="DiabloFireStompDebilitatingFlamesSet"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="DiabloFireStompImpactAddTrackedUnit"/>
+        <EffectArray value="DiabloFireStompHellfireImpactSet"/>
+        <EffectArray value="DiabloFireStompSoulsToTheFlameIncreaseTokenCounter"/>
+    </CEffectSet>
+    <CEffectSet id="FireStompReturnImpactSet">
+        <ValidatorArray value="DiabloTargetNotInFireStompUnitTracker"/>
+        <EffectArray value="DiabloFireStompReturnDamageSwitch"/>
+        <EffectArray value="DiabloFireStompDebilitatingFlamesSet"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="DiabloFireStompImpactAddTrackedUnit"/>
+        <EffectArray value="DiabloFireStompHellfireImpactSet"/>
+        <EffectArray value="DiabloFireStompSoulsToTheFlameIncreaseTokenCounter"/>
+    </CEffectSet>
+    <CEffectLaunchMissile id="FireStompLaunchMissile">
+        <ImpactLocation Value="TargetPoint"/>
+        <LaunchEffect value="DiabloFireStompLaunchSet"/>
+        <ImpactEffect value="FireStompMissileImpactSet"/>
+        <AmmoUnit value="DiabloFireStompMissile"/>
+        <DeathType value="Unknown"/>
+    </CEffectLaunchMissile>
+    <CEffectCreatePersistent id="FireStompLaunchPersistent">
+        <WhichLocation Value="CasterPoint"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="FireStompLaunchMissile"/>
+        <PeriodicPeriodArray value="0"/>
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="FireStompSearch">
+        <LaunchLocation Value="OriginPoint"/>
+        <AreaArray MaxCount="1" Radius="0.66" Effect="FireStompImpactSet"/>
+    </CEffectEnumArea>
+    <CEffectLaunchMissile id="FireStompLaunchReturnMissile">
+        <ValidatorArray index="0" value="CasterNotDead"/>
+        <LaunchLocation Effect="FireStompReturnCreatePersistent" Value="TargetPoint"/>
+        <ImpactLocation Effect="FireStompReturnCreatePersistent" Value="CasterUnit"/>
+        <LaunchEffect value="DiabloFireStompReturnMissileLaunchSet"/>
+        <ImpactEffect value="DiabloFireStompImpactDummy"/>
+        <AmmoUnit value="DiabloFireStompReturnMissile"/>
+        <Marker>
+            <MatchFlags index="Id" value="1"/>
+        </Marker>
+    </CEffectLaunchMissile>
+    <CEffectApplyBehavior id="DiabloFireStompApplyReturnMissileSuicideBehavior">
+        <WhichUnit Value="Source"/>
+        <Behavior value="FireStompReturnMissileSuicideBehavior"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="FireStompReturnCreatePersistent">
+        <WhichLocation Effect="FireStompLaunchMissile"/>
+        <PeriodCount value="1"/>
+        <PeriodicEffectArray value="FireStompLaunchReturnMissile"/>
+        <PeriodicPeriodArray value="0"/>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="FireStompReturnSearch">
+        <AreaArray MaxCount="1" Radius="0.66" Effect="FireStompReturnImpactSet"/>
+    </CEffectEnumArea>
+    <CEffectApplyBehavior id="DiabloLightningBreathApplyActiveBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloLightningBreathActive"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloLightningBreathApplyTargetBehavior">
+        <Behavior value="DiabloLightningBreathTarget"/>
+    </CEffectApplyBehavior>
+    <CEffectSet id="DiabloLightningBreathDamageSet">
+        <EffectArray value="DiabloLightningBreathDamage"/>
+        <EffectArray value="ApplyAbilityImpactReveal"/>
+        <EffectArray value="DiabloLightningBreathApplySlowBehavior"/>
+    </CEffectSet>
+    <CEffectRemoveBehavior id="DiabloLightningBreathRemoveActiveBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloLightningBreathActive"/>
+        <Count value="1"/>
+    </CEffectRemoveBehavior>
+    <CEffectSet id="DiabloSoulstonePeriodicSet">
+        <EffectArray value="DiabloSoulstoneReadyApplyBehavior"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="DiabloSoulstoneReadyApplyBehavior">
+        <ValidatorArray index="0" value="DiabloSoulStoneReadyCombine"/>
+        <ValidatorArray value="DiabloSoulstoneNotReady"/>
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloSoulstoneReady"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloSoulstoneStackApplyBehavior">
+        <WhichUnit Effect="DiabloSoulstoneDebuffApplyBehavior" Value="Source"/>
+        <Behavior value="DiabloSoulstoneStack"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloSoulstoneStackHeroicApplyBehavior">
+        <WhichUnit Effect="DiabloSoulstoneDebuffHeroicApplyBehavior" Value="Source"/>
+        <Behavior value="DiabloSoulstoneStack"/>
+        <Count value="5"/>
+    </CEffectApplyBehavior>
+    <CEffectRemoveBehavior id="DiabloSoulstoneStackRemoveBehavior">
+        <WhichUnit Value="Caster"/>
+        <BehaviorLink value="DiabloSoulstoneStack"/>
+        <Count value="50"/>
+    </CEffectRemoveBehavior>
+    <CEffectApplyBehavior id="DiabloSoulstoneDebuffApplyBehavior">
+        <Behavior value="DiabloSoulstoneDebuff"/>
+    </CEffectApplyBehavior>
+    <CEffectApplyBehavior id="DiabloStyleAttackApplyMissileScan">
+        <WhichUnit Value="Source"/>
+        <Behavior value="DiabloStyleAttackMissileScan"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="DiabloSoulstoneReincarnationModelPersistent">
+        <WhichLocation Value="CasterPoint"/>
+        <ExpireDelay value="1"/>
+        <PeriodCount value="1"/>
+        <PeriodicPeriodArray value="5"/>
+        <RevealRadius value="2"/>
+        <RevealFlags index="Unfog" value="1"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="DiabloHeroWeaponImpactSet">
+        <EffectArray value="UniversalWeaponImpact"/>
+        <EffectArray value="DiabloHeroWeaponDiabolicalMomentumTalentModifyCooldowns"/>
+        <EffectArray value="DiabloHeroWeaponDamage"/>
+        <EffectArray value="DiabloHeroWeaponLifeLeechTalentSet"/>
+        <EffectArray value="DiabloMalevolenceSet"/>
+        <EffectArray value="UniversalWeaponLaunchSet"/>
+    </CEffectSet>
+    <CEffectApplyBehavior id="ApocalypseApplyBehavior">
+        <Behavior value="ApocalypseStun"/>
+    </CEffectApplyBehavior>
+    <CEffectCreatePersistent id="ApocalypseCreatePersistent">
+        <InitialEffect value="ApocalypseRevealer"/>
+        <ExpireDelay value="1.75"/>
+        <ExpireEffect value="ApocalypseSearch"/>
+        <ValidatorArray value="DiabloApocalypseIsValidTargetCombine"/>
+    </CEffectCreatePersistent>
+    <CEffectEnumArea id="ApocalypseSearch">
+        <ImpactLocation Value="TargetPoint"/>
+        <AreaArray Radius="2.5" Effect="ApocalypseSet"/>
+    </CEffectEnumArea>
+    <CEffectCreatePersistent id="ApocalypseRevealer">
+        <ExpireDelay value="5"/>
+        <RevealRadius value="6"/>
+        <RevealFlags index="Unfog" value="1"/>
+    </CEffectCreatePersistent>
+    <CEffectSet id="ApocalypseSet">
+        <EffectArray value="ApocalypseDamage"/>
+        <EffectArray value="ApocalypseApplyBehavior"/>
+        <EffectArray value="CameraShakeMediumTauntingTotemSet"/>
+        <EffectArray value="DiabloApocalypseDyingBreathSwitch"/>
+        <ValidatorArray value="noMarkers"/>
+    </CEffectSet>
+    <CEffectModifyUnit id="DiabloHeroWeaponDiabolicalMomentumTalentModifyCooldowns">
+        <ValidatorArray value="DiabloHasDiabolicalMomentum"/>
+        <ValidatorArray value="CasterNotBlindedAndTargetNotEvading"/>
+        <ImpactUnit Value="Caster"/>
+        <Cost Abil="DiabloShadowCharge,Execute" CooldownOperation="Add" CooldownTimeUse="-1.5"/>
+        <Cost Abil="DiabloOverpower,Execute" ChargeTimeUse="-1.5" CooldownOperation="Add"/>
+    </CEffectModifyUnit>
+    <CAbilEffectInstant id="DiabloBlackSoulstoneSoulShield">
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloSoulShieldInitialSet"/>
+        <Flags index="NoDeceleration" value="1"/>
+        <Flags index="RequireTargetVision" value="0"/>
+        <Flags index="TransientPreferred" value="1"/>
+        <Cost>
+            <Cooldown Location="Player" TimeUse="45"/>
+        </Cost>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloSoulShield">
+            <Flags index="AllowSelfCast" value="1"/>
+        </CmdButtonArray>
+    </CAbilEffectInstant>
+    <CAbilEffectInstant id="DiabloTalentLordOfTerror">
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloLordOfTerrorSearch"/>
+        <Flags index="NoDeceleration" value="1"/>
+        <Cost>
+            <Cooldown TimeUse="60"/>
+        </Cost>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloLordOfTerror"/>
+    </CAbilEffectInstant>
+    <CAbilEffectTarget id="DiabloOverpower">
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloOverpowerInitialChannelCreatePersistent"/>
+        <Flags index="ClearLastMoveTarget" value="1"/>
+        <Cost>
+            <Vital index="Energy" value="35"/>
+            <Charge>
+                <CountMax value="1"/>
+                <CountStart value="1"/>
+                <CountUse value="1"/>
+                <HideCount value="1"/>
+                <TimeUse value="12"/>
+            </Charge>
+            <Cooldown TimeUse="2"/>
+        </Cost>
+        <TargetFilters value="-;Player,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable"/>
+        <Range value="1"/>
+        <RangeSlop value="5"/>
+        <CastIntroTime value="0.0625"/>
+        <UninterruptibleArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Channel" value="1"/>
+        <UninterruptibleArray index="Finish" value="1"/>
+        <SetLastTarget value="Attack"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloOverpower"/>
+    </CAbilEffectTarget>
+    <CAbilEffectTarget id="DiabloShadowCharge">
+        <Effect value="DiabloShadowChargeInitialSet"/>
+        <Flags index="BestUnit" value="0"/>
+        <Flags index="ClearLastMoveTarget" value="1"/>
+        <Cost>
+            <Vital index="Energy" value="65"/>
+            <Cooldown TimeUse="12"/>
+        </Cost>
+        <TargetFilters value="Visible;Player,Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+        <Range value="7"/>
+        <UninterruptibleArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Channel" value="1"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloShadowCharge"/>
+        <CursorEffect value="DiabloShadowChargeCursorDummySearch"/>
+        <Arc value="360"/>
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <SetLastTarget value="Attack"/>
+    </CAbilEffectTarget>
+    <CAbilEffectInstant id="LightningBreathCancel">
+        <Effect value="DiabloLightningBreathRemoveControllerBehavior"/>
+        <Flags index="Transient" value="1"/>
+        <Cost>
+            <Charge Link="Abil/DiabloLightningBreathCancel"/>
+            <Cooldown Link="Abil/DiabloLightningBreathCancel" TimeStart="1.5" TimeUse="1.5"/>
+        </Cost>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloLightningBreathCancel" Requirements="LightningBreathTargetedActive"/>
+    </CAbilEffectInstant>
+    <CAbilEffectTarget id="DiabloLightningBreath">
+        <Activity value="Abil/Activity/DiabloLightningBreath"/>
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloLightningBreathInitialPersistent"/>
+        <Flags index="ClearLastMoveTarget" value="1"/>
+        <Flags index="RequireTargetVision" value="0"/>
+        <Flags index="UpdateTarget" value="1"/>
+        <Cost>
+            <Vital index="Energy" value="80"/>
+            <Cooldown TimeUse="90"/>
+        </Cost>
+        <Range value="500"/>
+        <Arc value="360"/>
+        <ShowProgressArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Channel" value="1"/>
+        <UninterruptibleArray index="Finish" value="1"/>
+        <CursorEffect value="DiabloLightningBreathSearchArea"/>
+        <CastOutroTimeEffect value="DiabloLightningBreathInitialPersistent"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloLightningBreath" Requirements="Ultimate2Unlocked"/>
+    </CAbilEffectTarget>
+    <CAbilEffectTarget id="DiabloFireStomp">
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloFireStompInitialSet"/>
+        <Flags index="ClearLastMoveTarget" value="1"/>
+        <Flags index="RequireTargetVision" value="0"/>
+        <Cost>
+            <Vital index="Energy" value="35"/>
+            <Charge Link="Abil/FireStomp"/>
+            <Cooldown Link="Abil/FireStomp" TimeUse="8"/>
+        </Cost>
+        <Range value="500"/>
+        <CastIntroTime value="0.2"/>
+        <UninterruptibleArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Channel" value="1"/>
+        <UninterruptibleArray index="Finish" value="1"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloFireStomp"/>
+        <CursorEffect value="FireStompSearch"/>
+    </CAbilEffectTarget>
+    <CAbilEffectInstant id="DiabloApocalypse">
+        <PrepEffect value="DismountDecloakCasterSet"/>
+        <Effect value="DiabloApocalypseEnumerateTrackedUnits"/>
+        <Flags index="ClearLastMoveTarget" value="1"/>
+        <Cost>
+            <Vital index="Energy" value="50"/>
+            <Cooldown TimeUse="90"/>
+        </Cost>
+        <CastIntroTime value="0.2"/>
+        <UninterruptibleArray index="Cast" value="1"/>
+        <UninterruptibleArray index="Channel" value="1"/>
+        <UninterruptibleArray index="Finish" value="1"/>
+        <CmdButtonArray index="Execute" DefaultButtonFace="DiabloApocalypse" Requirements="Ultimate1Unlocked"/>
+    </CAbilEffectInstant>
+    <CValidatorUnitCompareBehaviorCount id="DiabloFireStompHellfireHasMaximumSpellPowerBuffStacks">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="10"/>
+        <Behavior value="DiabloFireStompHellfireSpellPower"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloOverpowerTargetHasOverpowerNoEffectTree">
+        <Value value="1"/>
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorPlayerTalent id="HasCrueltyTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloShadowChargeOverpowerCruelty"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasMalevolenceTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloMalevolence"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasOverpoweringNightmareTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloOverpowerOverpoweringNightmare"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasEternalFlamesTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloShadowChargeOverpowerEternalFlames"/>
+    </CValidatorPlayerTalent>
+    <CValidatorUnitCompareBehaviorCount id="DiabloDoesNotHaveSacrificialSoulImprovedArmorBehavior">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloShadowChargeSacrificialSoulImprovedArmorIncrease"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloHasMalevolenceStack">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="1"/>
+        <Behavior value="DiabloMalevolence"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorPlayerTalent id="HasDiabloSoulsToTheFlame">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloFireStompSoulsToTheFlame"/>
+    </CValidatorPlayerTalent>
+    <CValidatorUnitCompareBehaviorCount id="DiabloCasterHasCrueltyBasicAttackDamageBonusBuff">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GT"/>
+        <Behavior value="DiabloShadowChargeOverpowerCrueltyBasicAttackDamageBonus"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorCombine id="DiabloApocalypseCooldownGTE5ANDApocalypseCooldownLTE30">
+        <Type value="And"/>
+        <CombineArray value="DiabloApocalypseCooldownGTE5"/>
+        <CombineArray value="DiabloApocalypseCooldownLTE30"/>
+    </CValidatorCombine>
+    <CValidatorUnitCompareCooldown id="DiabloApocalypseCooldownLTE30">
+        <WhichUnit Value="Caster"/>
+        <Compare value="LE"/>
+        <CooldownLink value="Abil/DiabloApocalypse"/>
+        <Location value="Unit"/>
+        <Ability value="DiabloApocalypse"/>
+        <Value value="30"/>
+    </CValidatorUnitCompareCooldown>
+    <CValidatorUnitCompareCooldown id="DiabloApocalypseCooldownGTE5">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <CooldownLink value="Abil/DiabloApocalypse"/>
+        <Location value="Unit"/>
+        <Ability value="DiabloApocalypse"/>
+        <Value value="5"/>
+    </CValidatorUnitCompareCooldown>
+    <CValidatorUnitCompareBehaviorCount id="DiabloTargetHasGTE4StacksofDebilitatingFlamesSlow">
+        <Compare value="GE"/>
+        <Value value="4"/>
+        <Behavior value="DiabloFireStompDebilitatingFlamesTalentSlow"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorPlayerTalent id="HasSacrificialSoulTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloShadowChargeSacrificialSoul"/>
+    </CValidatorPlayerTalent>
+    <CValidatorIsUnitTracked id="DiabloTargetNotInFireStompUnitTracker">
+        <BehaviorLink value="DiabloFireStompMarkerMissileTracker"/>
+        <TrackerUnit Value="Source"/>
+        <TrackedUnit Value="Target"/>
+    </CValidatorIsUnitTracked>
+    <CValidatorUnitCompareBehaviorCount id="DiabloLightningBreathCasterDoesNotHaveActive">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloLightningBreathActive"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloLightningBreathTargetDoesNotHaveActive">
+        <Behavior value="DiabloLightningBreathActive"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloLightningBreathTargetHasActive">
+        <Value value="1"/>
+        <Behavior value="DiabloLightningBreathActive"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloOverpowerCasterHasOverpower">
+        <WhichUnit Value="Caster"/>
+        <Value value="1"/>
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloOverpowerCasterDoesNotHaveOverpower">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeTargetDoesNotHaveStunLimiter">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="DiabloShadowChargeStunLimiter"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorPlayerTalent id="DiabloHasDevastatingChargeTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloDevastatingCharge"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="DiabloHasSoulShieldTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloSoulShield"/>
+    </CValidatorPlayerTalent>
+    <CValidatorUnitCompareBehaviorCount id="DiabloHasBlackSoulstoneAvailable">
+        <Value value="1"/>
+        <Behavior value="DiabloBlackSoulstoneActivationController"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorPlayerTalent id="DiabloHasDiabolicalMomentum">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloDiabolicalMomentum"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="DiabloHasHellfireTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloHellfire"/>
+    </CValidatorPlayerTalent>
+    <CValidatorCombine id="DiabloApocalypseIsEnemyHeroOrCocoonCombine">
+        <CombineArray value="DiabloApocalypseIsEnemyHero"/>
+        <CombineArray value="AnubarakIsCocoonedEnemyHeroCombine"/>
+    </CValidatorCombine>
+    <CValidatorCombine id="DiabloApocalypseIsValidTargetCombine">
+        <Type value="And"/>
+        <CombineArray value="DiabloApocalypseIsEnemyHero"/>
+        <CombineArray value="TargetNotHideNameplate"/>
+    </CValidatorCombine>
+    <CValidatorUnitFilters id="DiabloApocalypseIsEnemyHero">
+        <Filters value="Heroic;Player,Ally,Neutral,Missile,Item,Dead,Hidden"/>
+    </CValidatorUnitFilters>
+    <CValidatorCombine id="DiabloShadowChargeLocationIsNotWalkableOrTargetHasHitPathingBlocker">
+        <CombineArray value="DiabloShadowChargeTargetHasHitPathingBlocker"/>
+        <CombineArray value="NotWalkable"/>
+    </CValidatorCombine>
+    <CValidatorLocationCompareRange id="DiabloShadowChargeCasterWithin2unitsofOrigin">
+        <WhichLocation Value="OriginPoint"/>
+        <Compare value="LT"/>
+        <Range value="2"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorLocationArc id="DiabloShadowChargeTargetWithin30Degrees">
+        <WhichLocation Value="CasterUnit"/>
+        <Arc value="29.9926"/>
+        <Value Effect="DiabloShadowChargeCasterLaunchMissile" Value="TargetUnit"/>
+    </CValidatorLocationArc>
+    <CValidatorCombine id="DiabloShadowChargeTargetNotWithin30Degrees">
+        <Negate value="1"/>
+        <CombineArray value="DiabloShadowChargeTargetWithin30Degrees"/>
+    </CValidatorCombine>
+    <CValidatorLocationCompareRange id="DiabloShadowChargeTargetIsNotClose">
+        <WhichLocation Effect="DiabloShadowChargeInitialSet" Value="TargetUnit"/>
+        <Compare value="GT"/>
+        <Range value="1"/>
+        <Value Effect="DiabloShadowChargeInitialSet"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorUnitFilters id="DiabloShadowChargeTargetNotDeadOrUnstoppable">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Filters value="-;Dead,Unstoppable"/>
+    </CValidatorUnitFilters>
+    <CValidatorUnitCompareBehaviorCount id="DiabloOverpowerTargetDoesNotHaveOverpower">
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitMover id="DiabloOverpowerDiabloIsOverpowerCasterMover">
+        <WhichUnit Value="Caster"/>
+        <Value value="DiabloOverpowerCasterMover"/>
+        <Find value="1"/>
+    </CValidatorUnitMover>
+    <CValidatorUnitMover id="DiabloOverpowerDiabloTargetIsOverpowerTargetMover">
+        <WhichUnit Value="Caster"/>
+        <Value value="DiabloOverpowerTargetMover"/>
+        <Find value="1"/>
+    </CValidatorUnitMover>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeTargetIsFat">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Value value="1"/>
+        <Behavior value="HeroGenericIsFat"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeNoImpactedTargetUnitBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet" Value="Caster"/>
+        <Behavior value="DiabloShadowChargeTargetImpactedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeHasImpactedTargetUnitBehavior">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet" Value="Caster"/>
+        <Value value="1"/>
+        <Behavior value="DiabloShadowChargeTargetImpactedBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeTargetIsNotFat">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Behavior value="HeroGenericIsFat"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitFilters id="DiabloShadowChargeTargetIsStructure">
+        <WhichUnit Effect="DiabloShadowChargeInitialSet"/>
+        <Filters value="Structure;-"/>
+    </CValidatorUnitFilters>
+    <CValidatorCombine id="DiabloShadowChargeDiabloKnockbackValidator">
+        <Type value="And"/>
+        <CombineArray value="DiabloShadowChargeTargetNotInBonusStun"/>
+        <CombineArray value="DiabloShadowChargeTargetNotDeadOrUnstoppable"/>
+        <CombineArray value="CasterNotDazedOrDeadOrFearedOrPolymorphedOrRootedOrStasisOrStunnedExceptTimeStop"/>
+    </CValidatorCombine>
+    <CValidatorUnitFilters id="FireStompReturnMissileSuicideValidator">
+        <WhichUnit Effect="DiabloFireStompInitialSet" Value="Caster"/>
+    </CValidatorUnitFilters>
+    <CValidatorUnitCompareBehaviorCount id="DiabloHasShadowChargeCasterBehaviorSource">
+        <WhichUnit Value="Source"/>
+        <Value value="1"/>
+        <Behavior value="DiabloShadowChargeCasterPreUnitImpactBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeCasterHasPostChargeBehavior">
+        <Value value="1"/>
+        <Behavior value="DiabloShadowChargeCasterPostUnitImpactChargeBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorLocationEnumArea id="DiabloLordOfTerrorEnemyProximityValidator">
+        <WhichLocation Value="CasterUnit"/>
+        <AreaArray Compare="GT" Radius="6"/>
+        <SearchFilters value="Heroic,Visible;Self,Player,Ally,Neutral,Worker,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+    </CValidatorLocationEnumArea>
+    <CValidatorPlayerTalent id="HasDiabloLifeLeech">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloLifeLeech"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasDiabloDomination">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloTalentDominationOverpower"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="DiabloHasDebilitatingFlames">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloDebilitatingFlames"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="DiabloHasBulwarkTalent">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloBulwark"/>
+    </CValidatorPlayerTalent>
+    <CValidatorUnitCompareOrderCount id="DiabloOverpowerCasterHasOverpowerOrder">
+        <AbilLink value="DiabloOverpower"/>
+        <Value value="1"/>
+    </CValidatorUnitCompareOrderCount>
+    <CValidatorUnitCompareOrderCount id="DiabloFireStompIsOrder">
+        <AbilLink value="DiabloFireStomp"/>
+        <Value value="1"/>
+    </CValidatorUnitCompareOrderCount>
+    <CValidatorUnitCompareOrderCount id="DiabloApocalypseIsOrder">
+        <AbilLink value="DiabloApocalypse"/>
+        <Value value="1"/>
+    </CValidatorUnitCompareOrderCount>
+    <CValidatorUnitCompareOrderCount id="DiabloLightningBreathCasterHasOrder">
+        <AbilLink value="DiabloLightningBreath"/>
+        <Value value="1"/>
+    </CValidatorUnitCompareOrderCount>
+    <CValidatorUnitCompareOrderCount id="DiabloLordOfTerrorIsOrder">
+        <AbilLink value="DiabloTalentLordOfTerror"/>
+        <Value value="1"/>
+    </CValidatorUnitCompareOrderCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloShadowChargeTargetisaShadowChargeMissile">
+        <Value value="1"/>
+        <Behavior value="DiabloShadowChargeCasterPreUnitImpactBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloHasGTE100SoulstoneStacks">
+        <WhichUnit Value="Caster"/>
+        <Compare value="GE"/>
+        <Value value="100"/>
+        <Behavior value="BlackSoulstone"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="BlackSoulstoneGTE1">
+        <WhichUnit Value="Source"/>
+        <Compare value="GE"/>
+        <Value value="1"/>
+        <Behavior value="BlackSoulstone"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DiabloDoesNotHaveFireStompDummy">
+        <WhichUnit Value="Caster"/>
+        <Behavior value="FireStompDummyBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="OverpowerTargetHasOverpower">
+        <WhichUnit Effect="DiabloOverpowerInitialChannelCreatePersistent"/>
+        <Value value="1"/>
+        <Behavior value="DiabloOverpowerTargetBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="DoesNotHaveDiabloFireStompMastery">
+        <WhichUnit Effect="DiabloFireStompInitialSet" Value="Caster"/>
+        <Behavior value="DiabloFireStompMasteryCarryBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorUnitCompareBehaviorCount id="HasDiabloFireStompMastery">
+        <WhichUnit Effect="DiabloFireStompInitialSet" Value="Caster"/>
+        <Value value="1"/>
+        <Behavior value="DiabloFireStompMasteryCarryBehavior"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorCombine id="DiabloOverpowerCasterAndTargetCombine">
+        <Type value="And"/>
+        <CombineArray value="TargetNotDead"/>
+        <CombineArray value="TargetNotStasisExceptTimeStop"/>
+        <CombineArray value="TargetAndCasterIsTimeStoppedOrTargetAndCasterNotTimeStopped"/>
+        <CombineArray value="CasterNotDeadOrPushPullOrSilencedOrStasisOrStunnedExceptTimeStop"/>
+    </CValidatorCombine>
+    <CValidatorUnitOrderQueue id="DiabloInfernoBreathing">
+        <AbilLink value="DiabloLightningBreath"/>
+        <Target Value="TargetUnit"/>
+    </CValidatorUnitOrderQueue>
+    <CValidatorCombine id="LordofTerrorCombine">
+        <CombineArray value="TargetLifeLT30Percent"/>
+        <CombineArray value="LordofTerrorNotRevealed"/>
+    </CValidatorCombine>
+    <CValidatorUnitCompareBehaviorCount id="LordofTerrorNotRevealed">
+        <Behavior value="LordofTerror"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CValidatorLocationCompareRange id="TargetWithBehaviorWithin30Range">
+        <WhichLocation Effect="LordofTerrorTraitApplyBehavior" Value="TargetUnit"/>
+        <Compare value="LE"/>
+        <Range value="30"/>
+        <Value Effect="LordofTerrorTraitSearchArea"/>
+    </CValidatorLocationCompareRange>
+    <CValidatorPlayerTalent id="HasDiabloDevilsDue">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloMasteryDevilsDueBlackSoulstone"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasDiabloFeastOnFear">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloMasteryFeastOnFearBlackSoulstone"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasDiabloDyingBreath">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloMasteryDyingBreathApocalypse"/>
+    </CValidatorPlayerTalent>
+    <CValidatorPlayerTalent id="HasDiabloHellstorm">
+        <WhichPlayer Value="Caster"/>
+        <Find value="1"/>
+        <Value value="DiabloMasteryHellstormLightningBreath"/>
+    </CValidatorPlayerTalent>
+    <CValidatorLocationPathable id="DiabloOverpowerTargetPathable">
+        <ResultFailed value="Error,Error/CantPathToLocation"/>
+        <WhichLocation Effect="DiabloOverpowerPathableBehindApplyBehavior"/>
+        <Types index="Building" value="0"/>
+    </CValidatorLocationPathable>
+    <CValidatorUnitCompareBehaviorCount id="TargetHasDiabloOverpowerPathableBehind">
+        <Value value="1"/>
+        <Behavior value="DiabloOverpowerPathableBehind"/>
+        <WhichUnit Value="Caster"/>
+    </CValidatorUnitCompareBehaviorCount>
+    <CRequirement id="DiabloHasPassive2">
+        <NodeArray index="Show" Link="AndEqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit0"/>
+    </CRequirement>
+    <CRequirement id="LightningBreathTargetedActive">
+        <NodeArray index="Show" Link="OrEqCountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit1EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1"/>
+    </CRequirement>
+    <CRequirement id="DiabloHasPassiveImproved">
+        <NodeArray index="Show" Link="AndEqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit1"/>
+    </CRequirement>
+    <CRequirement id="LightningBreathActive">
+        <NodeArray index="Show" Link="CountBehaviorLightningBreathCasterCompleteOnlyAtUnit"/>
+    </CRequirement>
+    <CRequirement id="LightningBreathNotActive">
+        <NodeArray index="Show" Link="NotCountBehaviorLightningBreathCasterCompleteOnlyAtUnit"/>
+    </CRequirement>
+    <CRequirement id="DiabloHasBlackSoulstoneActivationController">
+        <NodeArray index="Show" Link="AndEqCountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit1EqCountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit0"/>
+    </CRequirement>
+    <CTalent id="DiabloMalevolence">
+        <Face value="DiabloMalevolence"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloMalevolenceApplyBehavior"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloMalevolenceSet"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloFireStompSoulsToTheFlame">
+        <Face value="DiabloFireStompSoulsToTheFlame"/>
+        <Abil value="DiabloFireStomp"/>
+        <RankArray>
+            <BehaviorArray value="DiabloFireStompSoulsToTheFlameTokenCounter"/>
+        </RankArray>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloFireStompSoulsToTheFlameIncreaseTokenCounter"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloOverpowerOverpoweringNightmare">
+        <Face value="DiabloOverpowerOverpoweringNightmareTalent"/>
+        <Abil value="DiabloOverpower"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Entry value="DiabloOverpower"/>
+                <Field value="Cost.Charge.CountMax"/>
+                <Value value="2.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Entry value="DiabloOverpower"/>
+                <Field value="Cost[0].Charge.HideCount"/>
+                <Value value="-1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloShadowChargeOverpowerEternalFlames">
+        <Face value="DiabloShadowChargeOverpowerEternalFlames"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloFireStompEternalFlamesFireStompCooldownReduction"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Entry value="DiabloFireStomp"/>
+                <Field value="Cost.Cooldown.TimeUse"/>
+                <Value value="-1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+        <Abil value="DiabloFireStomp"/>
+    </CTalent>
+    <CTalent id="DiabloShadowChargeOverpowerCruelty">
+        <Face value="DiabloShadowChargeOverpowerCruelty"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloShadowChargeOverpowerCrueltyAttackSpeedApplyBehavior"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloShadowChargeSacrificialSoul">
+        <Face value="DiabloShadowChargeSacrificialSoul"/>
+        <Abil value="DiabloShadowCharge"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloShadowChargeSacrificialSoulAddTokenSet"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloShadowChargeSacrificialSoulApplyArmorSwitch"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloDevastatingCharge">
+        <Face value="DiabloDevastatingCharge"/>
+        <Abil value="DiabloShadowCharge"/>
+        <RankArray>
+            <BehaviorArray value="DiabloShadowChargeDevastatingChargeTalentTokenCounter"/>
+            <BehaviorArray value="DiabloShadowChargeDevastatingChargeTalentCarry"/>
+        </RankArray>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloShadowChargeDevastatingChargeArmorDebuffApplyBehavior"/>
+                <Field value="Chance"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloSoulShield">
+        <Face value="DiabloSoulShield"/>
+        <Abil value="DiabloBlackSoulstoneSoulShield"/>
+        <RankArray>
+            <BehaviorArray value="DiabloSoulShieldModifyCooldownDamageResponse"/>
+            <BehaviorArray value="DiabloSoulShieldItem"/>
+        </RankArray>
+        <Active value="1"/>
+    </CTalent>
+    <CTalent id="DiabloHellgate">
+        <Face value="DiabloHellgateTalent"/>
+        <Abil value="DiabloHellgate"/>
+        <RankArray>
+            <BehaviorArray value="DiabloHellgateItem"/>
+        </RankArray>
+        <Active value="1"/>
+    </CTalent>
+    <CTalent id="DiabloHellfire">
+        <Face value="DiabloHellfire"/>
+        <Abil value="DiabloFireStomp"/>
+        <RankArray>
+            <BehaviorArray value="DiabloFireStompHellfireTalentTokenCounter"/>
+            <BehaviorArray value="DiabloFireStompHellfireBuffBehavior"/>
+        </RankArray>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloFireStompHellfireImpactSet"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloTalentDominationOverpower">
+        <Face value="DiabloOverpowerDominationTalent"/>
+        <Abil value="DiabloShadowCharge"/>
+    </CTalent>
+    <CTalent id="DiabloLifeLeech">
+        <Face value="DiabloLifeLeechTalent"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloHeroWeaponLifeLeechTalentSet"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloTalentLordOfTerror">
+        <Face value="DiabloLordOfTerror"/>
+        <Abil value="DiabloTalentLordOfTerror"/>
+        <RankArray>
+            <BehaviorArray value="DiabloLordOfTerrorItem"/>
+        </RankArray>
+        <Active value="1"/>
+    </CTalent>
+    <CTalent id="DiabloDebilitatingFlames">
+        <Face value="DiabloDebilitatingFlames"/>
+        <Abil value="DiabloFireStomp"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloFireStompDebilitatingFlamesSet"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloBulwark">
+        <Face value="DiabloBulwark"/>
+        <Abil value="DiabloShadowCharge"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Behavior"/>
+                <Entry value="DiabloShadowChargeArmorIncrease"/>
+                <Field value="Duration"/>
+                <Value value="2.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloMasteryDevilsDueBlackSoulstone">
+        <Face value="DiabloBlackSoulstoneDevilsDueTalent"/>
+        <RankArray>
+            <BehaviorArray value="DiabloBlackSoulstoneDevilsDueTalentTokenCounter"/>
+        </RankArray>
+        <Trait value="1"/>
+    </CTalent>
+    <CTalent id="DiabloMasteryDyingBreathApocalypse">
+        <Face value="DiabloApocalypseDyingBreathTalent"/>
+        <AbilityModificationArray ModifyAbil="DiabloApocalypse" TooltipAddendum="Talent/Diablo/Apocalypse/DyingBreath">
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloApocalypseDyingBreathSwitch"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+        <Abil value="DiabloApocalypse"/>
+    </CTalent>
+    <CTalent id="DiabloMasteryHellstormLightningBreath">
+        <Face value="DiabloLightningBreathHellstormTalent"/>
+        <AbilityModificationArray ModifyAbil="DiabloLightningBreath">
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Behavior"/>
+                <Entry value="DiabloLightningBreathController"/>
+                <Field value="Duration"/>
+                <Value value="8.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Behavior"/>
+                <Entry value="DiabloLightningBreathUnstoppable"/>
+                <Field value="Duration"/>
+                <Value value="8.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="CatalogReplacement"/>
+                <Catalog value="Sound"/>
+                <Entry value="Diablo_LightningBreath_Launch"/>
+                <StringReplacement value="Diablo_LightningEndless_Launch"/>
+            </Modifications>
+        </AbilityModificationArray>
+        <Abil value="DiabloLightningBreath"/>
+    </CTalent>
+    <CTalent id="DiabloMasteryFireDevilFireStomp">
+        <Face value="DiabloFirestompFireDevilTalent"/>
+        <Abil value="DiabloFireStomp"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="FireStompInitialPersistent"/>
+                <Field value="PeriodCount"/>
+                <Value value="2.000000"/>
+            </Modifications>
+            <Modifications>
+                <Type value="StringReplacement"/>
+                <Catalog value="Effect"/>
+                <Entry value="FireStompLaunchPersistent"/>
+                <Field value="PeriodicOffsetArray[0]"/>
+                <StringReplacement value="0,-15.75,0"/>
+            </Modifications>
+            <Modifications>
+                <Type value="StringReplacement"/>
+                <Catalog value="Unit"/>
+                <Entry value="DiabloFireStompMissile"/>
+                <Field value="Mover"/>
+                <StringReplacement value="FireStompMissileFireDevil"/>
+            </Modifications>
+            <Modifications>
+                <Type value="StringReplacement"/>
+                <Catalog value="Unit"/>
+                <Entry value="DiabloFireStompReturnMissile"/>
+                <Field value="Mover"/>
+                <StringReplacement value="FireStompReturnMissileFireDevil"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloMasteryFeastOnFearBlackSoulstone">
+        <Face value="DiabloBlackSoulstoneFeastOnFearTalent"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="DiabloBlackSoulstoneFeastOnFearApplyHealerBehavior"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+    </CTalent>
+    <CTalent id="DiabloMasterySoulStealBlackSoulstone">
+        <Face value="DiabloBlackSoulstoneSoulStealTalent"/>
+        <AbilityModificationArray>
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Behavior"/>
+                <Entry value="BlackSoulstone"/>
+                <Field value="Modification.VitalMaxAdditiveMultiplierArray[0]"/>
+                <Value value="0.001000"/>
+            </Modifications>
+        </AbilityModificationArray>
+        <Trait value="1"/>
+    </CTalent>
+    <CTalent id="DiabloHeroicAbilityLightningBreath">
+        <Face value="DiabloLightningBreath"/>
+        <RankArray>
+            <BehaviorArray value="Ultimate2Unlocked"/>
+        </RankArray>
+        <Active value="1"/>
+        <Abil value="DiabloLightningBreath"/>
+    </CTalent>
+    <CTalent id="DiabloHeroicAbilityApocalypse">
+        <Face value="DiabloApocalypse"/>
+        <RankArray>
+            <BehaviorArray value="Ultimate1Unlocked"/>
+        </RankArray>
+        <Active value="1"/>
+        <Abil value="DiabloApocalypse"/>
+    </CTalent>
+    <CTalent id="DiabloMasteryFirestorm">
+        <Face value="DiabloFireStompFirestormTalent"/>
+        <AbilityModificationArray ModifyAbil="DiabloFireStomp">
+            <Modifications>
+                <Type value="FlatModification"/>
+                <Catalog value="Effect"/>
+                <Entry value="FireStompReturnCreatePersistent"/>
+                <Field value="Chance"/>
+                <Value value="1.000000"/>
+            </Modifications>
+        </AbilityModificationArray>
+        <RankArray>
+            <BehaviorArray value="DiabloFireStompMasteryCarryBehavior"/>
+        </RankArray>
+        <Abil value="DiabloFireStomp"/>
+    </CTalent>
+    <CTalent id="DiabloDiabolicalMomentum">
+        <Face value="DiabloDiabolicalMomentum"/>
+    </CTalent>
+    <CRequirementCountBehavior id="CountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloLightningBreathChanneledCoolup" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementCountBehavior id="CountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloLightningBreathController" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementCountBehavior id="CountBehaviorLightningBreathTargetedControllerCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloLightningBreathController" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementAnd id="AndEqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit0">
+        <Tooltip value=""/>
+        <OperandArray value="EqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit0"/>
+    </CRequirementAnd>
+    <CRequirementAnd id="AndEqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit1">
+        <Tooltip value=""/>
+        <OperandArray value="EqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit1"/>
+    </CRequirementAnd>
+    <CRequirementCountBehavior id="CountBehaviorLightningBreathCasterCompleteOnlyAtUnit">
+        <Count Link="LightningBreathCaster" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementCountBehavior id="CountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Tooltip value=""/>
+        <Count Link="WeaponCarryDiabloFast" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementEq id="EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1">
+        <OperandArray index="0" value="CountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementEq>
+    <CRequirementEq id="EqCountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit1">
+        <OperandArray index="0" value="CountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementEq>
+    <CRequirementEq id="EqCountBehaviorLightningBreathTargetedControllerCompleteOnlyAtUnit1">
+        <OperandArray index="0" value="CountBehaviorLightningBreathTargetedControllerCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementEq>
+    <CRequirementEq id="EqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit0">
+        <Tooltip value=""/>
+        <OperandArray index="0" value="CountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="0"/>
+    </CRequirementEq>
+    <CRequirementEq id="EqCountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit1">
+        <Tooltip value=""/>
+        <OperandArray index="0" value="CountBehaviorWeaponCarryDiabloFastCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementEq>
+    <CRequirementOr id="OrEqCountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit1EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1">
+        <OperandArray value="EqCountBehaviorDiabloLightningBreathControllerCompleteOnlyAtUnit1"/>
+        <OperandArray value="EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1"/>
+    </CRequirementOr>
+    <CRequirementOr id="OrEqCountBehaviorLightningBreathTargetedControllerCompleteOnlyAtUnit1EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1">
+        <OperandArray value="EqCountBehaviorLightningBreathTargetedControllerCompleteOnlyAtUnit1"/>
+        <OperandArray value="EqCountBehaviorDiabloLightningBreathChanneledCoolupCompleteOnlyAtUnit1"/>
+    </CRequirementOr>
+    <CRequirementAnd id="AndEqCountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit1EqCountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit0">
+        <OperandArray value="EqCountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit1"/>
+        <OperandArray value="EqCountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit0"/>
+    </CRequirementAnd>
+    <CRequirementCountBehavior id="CountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloBlackSoulstoneActivationController" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementCountBehavior id="CountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloBlackSoulstoneResurrectActive" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementEq id="EqCountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit1">
+        <OperandArray index="0" value="CountBehaviorDiabloBlackSoulstoneActivationControllerCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementEq>
+    <CRequirementEq id="EqCountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit0">
+        <OperandArray index="0" value="CountBehaviorDiabloBlackSoulstoneResurrectActiveCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="0"/>
+    </CRequirementEq>
+    <CRequirementCountBehavior id="CountBehaviorDiabloSoulEmpowermentAvailabilityControllerCompleteOnlyAtUnit">
+        <Flags index="TechTreeCheat" value="0"/>
+        <Count Link="DiabloSoulEmpowermentAvailabilityController" State="CompleteOnlyAtUnit"/>
+    </CRequirementCountBehavior>
+    <CRequirementGTE id="GTECountBehaviorDiabloSoulEmpowermentAvailabilityControllerCompleteOnlyAtUnit1">
+        <OperandArray index="0" value="CountBehaviorDiabloSoulEmpowermentAvailabilityControllerCompleteOnlyAtUnit"/>
+        <OperandArray index="1" value="1"/>
+    </CRequirementGTE>
+    <CRequirementConst id="50"/>
+    <CActorSound id="DiabloFireStompHellfireSound" parent="SoundOneShot">
+        <On Terms="Behavior.DiabloFireStompHellfireBuffBehavior.On" Send="Create"/>
+        <Sound value="Diablo_Hellfire_Active"/>
+    </CActorSound>
+    <CActorSound id="BlackSoulstoneDeathSFXEnemy" parent="SoundOneShot">
+        <Filter index="Ally" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <On Terms="Effect.DiabloBlackSoulstoneResurrectDummyPersistent.Start" Send="Create"/>
+        <Sound value="Diablo_BlackSoulstone_Death"/>
+        <SoundFlags index="UpdateVisibility" value="0"/>
+    </CActorSound>
+    <CActorSound id="DiabloLightningBreathHellstormLaunchSound" parent="SoundContinuous">
+        <On Terms="Abil.DiabloLightningBreath.SourceCastStart; ValidatePlayer HasDiabloHellstorm" Send="Create"/>
+        <On Terms="Behavior.DiabloLightningBreathUnstoppable.Off" Send="Destroy"/>
+        <Sound value="Diablo_LightningEndless_Launch"/>
+        <Layers Sound="Diablo_LightningEndless_VOX"/>
+    </CActorSound>
+    <CActorSound id="DiabloFootstepSoundOverpowerApproachNotSelf" parent="SoundOneShot">
+        <Filter index="Self" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <Sound value="Diablo_Footstep"/>
+    </CActorSound>
+    <CActorSound id="DiabloFootstepSoundOverpowerApproachSelf" parent="SoundOneShot">
+        <Filter index="All" value="1"/>
+        <VisibleTo index="Self" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <Sound value="Diablo_Footstep_OverPower"/>
+    </CActorSound>
+    <CActorSound id="Diablo_FireStomp_Impact" parent="SoundOneShot">
+        <On Terms="Effect.DiabloFireStompDamageSwitch.Start; At Target" Send="Create"/>
+    </CActorSound>
+    <CActorSound id="Diablo_FireStomp_Impact_Return" parent="SoundOneShot">
+        <On Terms="Effect.DiabloFireStompReturnDamageSwitch.Start; At Target" Send="Create"/>
+    </CActorSound>
+    <CActorSound id="Diablo_FireStomp_Return_End" parent="SoundOneShot">
+        <On Terms="Effect.DiabloFireStompImpactDummy.Start" Send="Create"/>
+    </CActorSound>
+    <CActorSound id="Diablo_FireStomp_Return" parent="SoundOneShot">
+        <Terms value="Cap 1"/>
+        <Sound value="Diablo_FireStomp_Return_Start"/>
+        <Layers Sound="Diablo_FireStomp_Return" PlayDelaySource="Actor"/>
+    </CActorSound>
+    <CActorSound id="DiabloBlackSoulstoneSoulShieldSound" parent="SoundOneShot">
+        <On Terms="Behavior.DiabloSoulShieldSpellArmor.On" Send="Create"/>
+        <Sound value="Talent_SpellShield_launch"/>
+    </CActorSound>
+    <CActorSiteOpRotationExplicit id="DiabloFireStompGuideRightOffset">
+        <IsLocal value="1"/>
+    </CActorSiteOpRotationExplicit>
+    <CActorSiteOpRotationExplicit id="DiabloFireStompGuideFarRightOffset">
+        <IsLocal value="1"/>
+    </CActorSiteOpRotationExplicit>
+    <CActorSiteOpRotationExplicit id="DiabloFireStompGuideLeftOffset">
+        <IsLocal value="1"/>
+    </CActorSiteOpRotationExplicit>
+    <CActorSiteOpRotationExplicit id="DiabloFireStompGuideFarLeftOffset">
+        <IsLocal value="1"/>
+    </CActorSiteOpRotationExplicit>
+    <CActorSound id="FireDevilStartSound" parent="SoundOneShot">
+        <On Terms="Behavior.FireDevil.On" Send="Create"/>
+        <Sound value="Diablo_FireDevil_Launch"/>
+    </CActorSound>
+    <CActorSound id="FireDevilLoopSound" parent="SoundContinuous">
+        <On Terms="Behavior.FireDevil.On" Send="Create"/>
+        <On Terms="Behavior.FireDevil.Off" Send="Destroy"/>
+        <Sound value="Diablo_FireDevil_Loop"/>
+    </CActorSound>
+    <CActorSound id="FireDevilEndSound" parent="SoundOneShot">
+        <On Terms="Behavior.FireDevil.Off" Send="Create"/>
+        <Sound value="Diablo_FireDevil_End"/>
+    </CActorSound>
+    <CActorSound id="Diablo_FireStorm_Stomp" parent="SoundOneShot">
+        <Sound value="Diablo_FireStorm_Launch"/>
+        <Host Subject="::Creator"/>
+        <HostForProps Subject="::Creator"/>
+        <Layers Sound="Diablo_FireStorm_Stomp"/>
+    </CActorSound>
+    <CActorSiteOpForward id="SOpPoundForwardGuide">
+        <HostForward Subject="::actor.PoundTarget" Actor="Find"/>
+    </CActorSiteOpForward>
+    <CActorSiteOpLocalOffset id="PoundUnitOffset"/>
+    <CActorSiteOpRotationExplicit id="PoundUnitRotation">
+        <IsLocal value="1"/>
+    </CActorSiteOpRotationExplicit>
+    <CActorSiteOpEffect id="SOpPoundCaster">
+        <Location value="CasterUnit"/>
+    </CActorSiteOpEffect>
+    <CActorSound id="BlackSoulstoneDeathSFXAlly" parent="SoundOneShot">
+        <Filter index="Enemy" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <FogVisibility value="Visible"/>
+        <On Terms="Effect.DiabloBlackSoulstoneResurrectDummyPersistent.Start" Send="Create"/>
+        <Sound value="Diablo_BlackSoulstone_Death"/>
+        <SoundFlags index="UpdateVisibility" value="0"/>
+    </CActorSound>
+    <CActorSite id="PoundGrabSite">
+        <HostSiteOps Ops="SOpPoundCaster SOpAttachWeapon01"/>
+        <On Terms="ActorCreation" Target="::Creator" Send="Signal PoundGrabSiteCreated"/>
+    </CActorSite>
+    <CActorSound id="Diablo_BlackSoulstone_Missile_Loop" parent="SoundContinuous">
+        <Host Subject="::Creator"/>
+    </CActorSound>
+    <CActorMissile id="DiabloBlackSoulstoneHeroMissile" parent="GenericAttackMissile" unitName="DiabloBlackSoulstoneHeroMissile">
+        <Filter index="Ally" value="1"/>
+        <Filter index="Neutral" value="1"/>
+        <Filter index="Enemy" value="1"/>
+        <On Terms="ActorCreation" Send="Create Diablo_BlackSoulstone_Missile_Loop"/>
+        <On Terms="ActorDestruction" Send="DestroyParticles"/>
+    </CActorMissile>
+    <CActorMissile id="DiabloBlackSoulstoneNonHeroMissile" parent="GenericAttackMissile" unitName="DiabloBlackSoulstoneNonHeroMissile">
+        <Filter index="Ally" value="1"/>
+        <Filter index="Neutral" value="1"/>
+        <Filter index="Enemy" value="1"/>
+        <On Terms="ActorCreation" Send="Create Diablo_BlackSoulstone_Missile_Loop"/>
+        <On Terms="ActorDestruction" Send="DestroyParticles"/>
+    </CActorMissile>
+    <CActorModel id="DiabloHellgateModel">
+        <CopySource value="_Unit"/>
+        <InheritType value="OneShot"/>
+        <Inherits index="BaseModelScale" value="1"/>
+        <Inherits index="CastShadows" value="1"/>
+        <Inherits index="CreepEngulfment" value="1"/>
+        <Inherits index="Opacity" value="1"/>
+        <Inherits index="Scale" value="1"/>
+        <Inherits index="TeamColor" value="1"/>
+        <Inherits index="TintColor" value="1"/>
+        <Inherits index="Visibility" value="1"/>
+        <AcceptedTransfers index="Animator" value="1"/>
+        <AcceptedTransfers index="AnimProps" value="1"/>
+        <AcceptedTransfers index="Model" value="1"/>
+        <AcceptedTransfers index="Textures" value="1"/>
+        <AcceptedTransfers index="Status" value="1"/>
+        <AcceptedHostedPropTransfers index="WarpGroup" value="0"/>
+        <On Terms="Effect.DiabloHellgateTeleport.Start; At Source" Send="Create"/>
+        <On Terms="ActorCreation" Send="AnimHookSet HookedBaseline _Unit ::Baseline"/>
+        <On Terms="ActorCreation" Send="AnimHookClear HookedBaseline"/>
+        <On Terms="ActorCreation" Send="RefClear ::Host"/>
+        <On Terms="ActorCreation" Send="$Spell,Forward"/>
+        <On Terms="ActorCreation" Send="SetTintColor 64,64,255 0.500000"/>
+        <On Terms="ActorCreation" Send="SetOpacity 0.100000 0.250000"/>
+        <On Terms="ActorCreation" Send="TimerSet 0.250000 OpacityTimer"/>
+        <On Terms="TimerExpired; TimerName OpacityTimer" Send="SetOpacity 0.000000 0.250000"/>
+        <On Terms="ActorCreation" Send="TimerSet 0.600000 DelayDestroy"/>
+        <On Terms="TimerExpired; TimerName DelayDestroy" Send="Destroy"/>
+        <Host Subject="_Unit"/>
+        <HostSiteOps HoldPosition="1" HoldRotation="1"/>
+        <ModelFlags index="AllowHitTest" value="0"/>
+    </CActorModel>
+    <CActorSound id="HeroDiabloTauntVO" parent="SoundOneShot">
+        <Sound value="Diablo_Taunt"/>
+    </CActorSound>
+    <CActorSound id="HeroDiabloTauntUEVO" parent="SoundOneShot">
+        <Sound value="Diablo_Taunt_Evo"/>
+    </CActorSound>
+    <CActorSound id="DiabloLordofTerrorCastSound" parent="SoundOneShot">
+        <On Terms="Abil.DiabloTalentLordOfTerror.SourceCastStart" Send="Create"/>
+        <Sound value="Diablo_LordTerror_Reveal"/>
+    </CActorSound>
+    <CActorSound id="DiabloLordOfTerrorImpactSound" parent="SoundOneShot">
+        <On Terms="Effect.DiabloLordOfTerrorDamage.Start; At Target" Send="Create"/>
+        <Sound value="Talent_BloodForBlood_Impact"/>
+    </CActorSound>
+    <CActorBeamSimple id="DiabloLordOfTerrorBeam" parent="BeamSimpleAnimationStyleContinuous"/>
+    <CActorAction id="DiabloLordOfTerrorBeamAction" parent="GenericAttack" effectAttack="DiabloLordOfTerrorModifyUnitDummy">
+        <LaunchSiteOps Ops="SOpTargetUnit"/>
+        <LaunchSound value="DiabloLordOfTerrorImpactSound"/>
+        <Beam value="DiabloLordOfTerrorBeam"/>
+        <ImpactSiteOps Ops="SOpCasterUnit"/>
+        <ShieldFlashType value="None"/>
+    </CActorAction>
+    <CActorModel id="LordOfTerrorCastFX" parent="ModelAnimationStyleOneShot">
+        <On Terms="Abil.DiabloTalentLordOfTerror.SourceCastStart" Send="Create"/>
+        <HostSiteOps Ops="SOpAttachOrigin" HoldRotation="1"/>
+        <Model value="LordOfTerrorCast"/>
+    </CActorModel>
+    <CActorModel id="DiabloOverpowerTargetDummy">
+        <On Terms="Effect.DiabloOverpowerInitialPersistent.Start; At Target" Send="Create"/>
+        <On Terms="ActorCreation" Send="RefSetFromRequest ::actor.PoundCaster _Unit Caster Find"/>
+        <On Terms="ActorCreation" Target="::actor.PoundCaster" Send="Signal PoundTargetDummyCreated"/>
+        <On Terms="ActorCreation" Send="TimerSet 2.000000 DelayDestroy"/>
+        <On Terms="TimerExpired; TimerName DelayDestroy" Send="Destroy"/>
+        <On Terms="ActorCreation" Send="AnimPlay BSD Stand PlayForever"/>
+        <Host Subject="_Unit"/>
+        <HostSiteOps Ops="SOpAttachOrigin SOpShadow" HoldPosition="1" HoldRotation="1"/>
+        <Model value="Invisible"/>
+    </CActorModel>
+    <CActorSound id="DiabloOverpowerImpactSound" parent="SoundOneShot">
+        <On Terms="Effect.DiabloOverpowerApplyStunToTarget.Start; At Target" Send="Create"/>
+        <Sound value="Diablo_OverPower_Impact"/>
+    </CActorSound>
+    <CActorSound id="DiabloOverpowerLaunchSound" parent="SoundOneShot">
+        <On Terms="Effect.DiabloOverpowerApplyTargetBehavior.Start; At Target" Send="Create"/>
+        <Sound value="Diablo_OverPower_Launch"/>
+        <Layers Sound="Diablo_OverPower_VOX"/>
+        <Layers Sound="Diablo_OverPower_Whoosh"/>
+    </CActorSound>
+    <CActorEventMacro id="DiabloOverpowerAnimationMacro">
+        <On Terms="Signal.*.PoundGrabSiteCreated; IsStatus Billboarded 0" Send="RefClear ::Host"/>
+        <On Terms="Signal.*.PoundGrabSiteCreated; IsStatus Billboarded 0" Send="RefSetFromMsg ::Host ::Sender"/>
+        <On Terms="Signal.*.PoundGrabSiteCreated; IsStatus Billboarded 0" Send="HostSiteOpsSet ::Host {PoundUnitOffset PoundUnitRotation}"/>
+        <On Terms="Signal.*.PoundGrabSiteCreated" Send="AnimPlay Grabbed Flail PlayForever"/>
+        <On Terms="Behavior.DiabloOverpowerTargetBehavior.Off" Send="Signal ResetHost"/>
+        <On Terms="Behavior.DiabloOverpowerTargetBehavior.Off" Send="AnimClear Grabbed"/>
+    </CActorEventMacro>
+    <CActorSound id="DiabloShadowChargeImpactSound" parent="SoundOneShot">
+        <On Terms="Effect.DiabloShadowChargeMoveableUnitImpactedSet.Start; At Target" Send="Create"/>
+        <On Terms="Effect.DiabloShadowChargeImmoveableUnitImpactedSet.Start; At Target" Send="Create"/>
+        <Host Subject="_Unit"/>
+        <HostSiteOps Ops="SOpAttachCenter"/>
+        <Sound value="Diablo_DemonicCharge_Impact"/>
+    </CActorSound>
+    <CActorSound id="DiabloShadowChargeLaunchSound" parent="SoundOneShot">
+        <On Terms="Abil.DiabloShadowCharge.SourceCastStart" Send="Create"/>
+        <Sound value="Diablo_DemonicCharge_Cast"/>
+        <Layers Sound="Diablo_DemonicCharge_Whoosh"/>
+        <Layers Sound="Diablo_VOX_CastingA"/>
+    </CActorSound>
+    <CActorSplat id="DiabloShadowChargeSearchCursorSplat">
+        <Aliases value="_Scalable"/>
+        <Flags index="SuppressSaveLoad" value="1"/>
+        <FogVisibility value="Visible"/>
+        <On Terms="Abil.DiabloShadowCharge.Cursor" Send="Create"/>
+        <On Terms="ActorCreation" Send="Create DiabloShadowChargeCursorRegion"/>
+        <On Terms="ActorDestruction" Target="DiabloShadowChargeCursorRegion" Send="Destroy"/>
+        <On Terms="ActorOrphan" Send="Destroy"/>
+        <On Terms="Signal.*.LinkDiablo" Send="RefSetFromMsg ::actor.Diablo ::Sender"/>
+        <On Terms="Signal.*.LinkDiablo" Target="DiabloShadowChargeCursorRegion" Send="RefSet ::actor.Diablo ::actor.Diablo"/>
+        <HostSiteOps Ops="SOpBasicScopeFollow"/>
+        <FadeOut value="0.000000"/>
+        <HoldTime value="-1.000000"/>
+        <Layer value="AOELayer"/>
+        <Model value="StormRangeSplatBase"/>
+        <Height value="MinimumTerrain"/>
+    </CActorSplat>
+    <CActorRegionCircle id="DiabloShadowChargeCursorRegion">
+        <Aliases value="_Scalable"/>
+        <On Terms="ActorCreation" Send="QueryPersistent DiabloShadowChargeAddCursor DiabloShadowChargeRemoveCursor AgainstRadiusGame"/>
+        <On Terms="ActorOrphan" Send="Destroy"/>
+        <On Terms="Signal.*.DiabloShadowChargeArrowOn" Send="RefSetFromMsg ::actor.DiabloShadowChargeTarget ::Sender"/>
+        <On Terms="Signal.*.DiabloShadowChargeArrowOn" Target="::actor.DiabloShadowChargeTarget" Send="RefSet ::actor.Diablo ::actor.Diablo"/>
+        <On Terms="Signal.*.DiabloShadowChargeArrowOn" Target="::actor.DiabloShadowChargeTarget" Send="Signal DiabloShadowChargeTargetSet"/>
+        <HostSiteOps Ops="SOpBasicScopeFollow"/>
+        <NotifyRadiusKey value="_Scalable"/>
+        <NotifyArcKey value="_Scalable"/>
+        <Radius value="1.000000"/>
+    </CActorRegionCircle>
+    <CActorSiteOpAttach id="SOpAttachOriginDiabloTarget">
+        <AttachQuery Methods="Origin"/>
+        <Supporter Subject="::scope.targetted" Actor="Find"/>
+        <ForceSoftAttach value="1"/>
+    </CActorSiteOpAttach>
+    <CActorSiteOpForward id="SOpForwardQueryDiablo">
+        <HostForward Subject="_Unit" Actor="Find"/>
+        <Invert value="1"/>
+    </CActorSiteOpForward>
+    <CActorQueryResponse id="DiabloShadowChargeAddCursor">
+        <Subject Filters="Snapshot,Unit,Missile" Terms="ValidateUnit TargetIsEnemyAndIsVisible IncludeDerivedSnapshot System_Snapshot_Dummy"/>
+        <OnResponse Send="StatusIncrement PreTargetingModel"/>
+        <OnResponse Send="StatusIncrement PreTargetingTint"/>
+        <OnResponse Send="RefSet ::actor.PreTargetingSource ::QueryDirector"/>
+        <OnResponse Send="StatusSet DiabloShadowCharge 1"/>
+    </CActorQueryResponse>
+    <CActorQueryResponse id="DiabloShadowChargeRemoveCursor">
+        <Subject Filters="Snapshot,Unit,Missile"/>
+        <OnResponse Send="StatusDecrement PreTargetingModel"/>
+        <OnResponse Send="StatusDecrement PreTargetingTint"/>
+        <OnResponse Send="RefClear ::actor.PreTargetingSource"/>
+        <OnResponse Send="StatusSet DiabloShadowCharge 0"/>
+    </CActorQueryResponse>
+    <CActorAction id="DiabloFireStompActionActor" parent="GenericAttack" effectImpact="DiabloFireStompImpactDummy" effectLaunch="FireStompLaunchMissile">
+        <LaunchAttachQuery Methods="" Fallback="Origin"/>
+        <Missile value="DiabloFireStompMissile"/>
+        <ImpactPointSiteOps Ops="SOpTargetPoint SOpShadowRespectsBaseHeight SOpHeightLaunch"/>
+        <ShieldFlashType value="None"/>
+    </CActorAction>
+    <CActorAction id="DiabloFireStompReturnActionActor" parent="GenericAttack" effectLaunch="FireStompLaunchReturnMissile">
+        <LaunchSiteOps Ops="SOpTargetPointStationary SOpShadowRespectsBaseHeight"/>
+        <Missile value="DiabloFireStompReturnMissile"/>
+        <ImpactSiteOps Ops="SOpAttachOrigin"/>
+        <ShieldFlashType value="None"/>
+    </CActorAction>
+    <CActorSound id="DiabloLightningBreathEndSound" parent="SoundOneShot">
+        <InheritType value="Continuous"/>
+        <On Terms="Behavior.DiabloLightningBreathActive.Off" Send="Create"/>
+        <Sound value="Diablo_LightningBreath_End"/>
+    </CActorSound>
+    <CActorSound id="DiabloBlackSoulstoneResurrectLaugh" parent="SoundOneShot">
+        <Filter index="Self" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <On Terms="Effect.DiabloBlackSoulstoneResurrectDummyPersistent.Start" Send="Create"/>
+        <Sound value="Diablo_Resurrect_Laugh"/>
+        <SoundFlags index="UpdateVisibility" value="0"/>
+    </CActorSound>
+    <CActorSound id="DiabloBlackSoulstoneResurrectLaughPlayer" parent="SoundOneShot">
+        <Filter index="Ally" value="1"/>
+        <Filter index="Neutral" value="1"/>
+        <Filter index="Enemy" value="1"/>
+        <Inherits index="Visibility" value="0"/>
+        <On Terms="Effect.DiabloBlackSoulstoneResurrectDummyPersistent.Start" Send="Create"/>
+        <Sound value="Diablo_Resurrect_Laugh_Player"/>
+        <SoundFlags index="UpdateVisibility" value="0"/>
+    </CActorSound>
+    <CActorForceConeRoundedEnd id="DiabloLightningBreathForce">
+        <On Terms="Effect.LightningBreathSearch.Start; At Caster" Send="Create"/>
+        <Host Subject="LightningBreathAttackMissile"/>
+        <HostSiteOps Ops="SOpShadow" HoldPosition="1" HoldRotation="1"/>
+        <Duration value="0.125500"/>
+        <Magnitude value="50.000000"/>
+        <ForceFlags index="FallOff" value="0"/>
+        <HostEndSiteOps Ops="SOpMoveBy5Dot5"/>
+        <Angle value="28.000000"/>
+        <Length value="1.500000"/>
+    </CActorForceConeRoundedEnd>
+    <CActorSiteOpLocalOffset id="DiabloLightningBreathAttackOffset"/>
+    <CActorSound id="DiabloLightningBreathImpactSound" parent="SoundOneShot">
+        <On Terms="Behavior.DiabloLightningBreathTarget.On" Send="Create"/>
+        <Sound value="Diablo_LightningBreath_Impact"/>
+    </CActorSound>
+    <CActorSound id="DiabloLightningBreathLaunchSound" parent="SoundContinuous">
+        <On Terms="Abil.DiabloLightningBreath.SourceCastStart; !ValidatePlayer HasDiabloHellstorm" Send="Create"/>
+        <On Terms="Behavior.DiabloLightningBreathUnstoppable.Off" Send="Destroy"/>
+        <Sound value="Diablo_LightningBreath_Launch"/>
+        <Layers Sound="Diablo_LightningEndless_VOX"/>
+    </CActorSound>
+    <CActorSound id="DiabloApocalypseWarningSound" parent="SoundOneShot">
+        <On Terms="Effect.ApocalypseCreatePersistent.Start" Send="Create"/>
+        <On Terms="Effect.DiabloHellgateApocalypseCreatePersistent.Start" Send="Create"/>
+        <Sound value="Diablo_Apocalypse_Cast"/>
+    </CActorSound>
+    <CActorSound id="DiabloApocalypseCastSound" parent="SoundOneShot">
+        <On Terms="Abil.DiabloApocalypse.SourceCastStart" Send="Create"/>
+        <Sound value="Diablo_Apocalypse_Roar"/>
+    </CActorSound>
+    <CActorSound id="DiabloApocalypseExplodeSound" parent="SoundOneShot">
+        <On Terms="Effect.ApocalypseSearch.Start" Send="Create"/>
+        <Sound value="Diablo_Apocalypse_Explosion"/>
+    </CActorSound>
+    <CActorForceCylinder id="DiabloApocalypseUpForce">
+        <On Terms="Effect.ApocalypseSearch.Stop" Send="Create"/>
+        <On Terms="ActorCreation" Send="Create DiabloApocalypseOutForce"/>
+        <Duration value="0.012500"/>
+        <Magnitude value="75.000000"/>
+        <HostEndSiteOps Ops="SOpHigherBy3"/>
+        <Radius value="2.500000"/>
+    </CActorForceCylinder>
+    <CActorForceSphere id="DiabloApocalypseOutForce">
+        <Host Subject="SOpSplashDamagePositionVariance"/>
+        <Duration value="0.150000"/>
+        <Magnitude value="75.000000"/>
+        <Radius value="2.500000"/>
+    </CActorForceSphere>
+    <CActorSound id="DiabloFootstepSound" parent="SoundOneShot">
+        <Sound value="Diablo_Footstep"/>
+    </CActorSound>
+    <CActorSound id="PulledSoundHeroDiablo" parent="SoundOneShot">
+        <Sound value="Diablo_VOX_Pulled"/>
+    </CActorSound>
+    <CCharacter id="Diablo">
+        <Age value="40"/>
+        <Image value="Assets\Textures\ui_targetportrait_hero_diablo.dds"/>
+        <Voice value="ATT Rich"/>
+        <Color value="255,255,0,0"/>
+        <Race value="Unknown"/>
+        <Variations Model="DiabloPortrait" Actor="DiabloPortrait">
+            <DefaultCategories value="Default"/>
+            <DefaultCategories value="ConversationType:Mission"/>
+        </Variations>
+        <Unit value="HeroDiablo"/>
+    </CCharacter>
+    <CCharacter id="DiabloPrime">
+        <Variations Model="DiabloSkinPrimePortrait" Actor="DiabloSkinPrimePortrait"/>
+    </CCharacter>
+    <CModel id="DiabloFireStompHellfireDamage" parent="ImpactFX">
+        <Model value="Assets\Effects\Storm_Effect_Talent_BurningRage_Impact\Storm_Effect_Talent_BurningRage_Impact.m3"/>
+        <Lighting value="CrusaderHolyFuryDamage"/>
+        <Radius value="0.750000"/>
+    </CModel>
+    <CModel id="DiabloFireStompHellfireBuff" parent="OneShotSpellFX">
+        <Model value="Assets\Effects\Storm_Effect_Talent_BurningRage\Storm_Effect_Talent_BurningRage.m3"/>
+    </CModel>
+    <CModel id="DiabloMalevolenceImpactFX">
+        <Model value="Assets\Effects\Storm_FX_Diablo_Base_FTH_Impact\Storm_FX_Diablo_Base_FTH_Impact.m3"/>
+    </CModel>
+    <CModel id="DiabloHellgateTeleportInModel" parent="PersistentSpellFX">
+        <Model value="Assets\Effects\Storm_Effect_Talent_BoltoftheStorm_In\Storm_Effect_Talent_BoltoftheStorm_In.m3"/>
+        <Priority value="16"/>
+    </CModel>
+    <CModel id="DiabloHellgateTeleportOutModel" parent="PersistentSpellFX">
+        <Model value="Assets\Effects\Storm_Effect_Talent_BoltoftheStorm_Out\Storm_Effect_Talent_BoltoftheStorm_Out.m3"/>
+        <Priority value="16"/>
+    </CModel>
+    <CModel id="DiabloHellgateCursorSplat" parent="UI">
+        <Model value="Assets\UI\Cursors\Storm_UI_AOECursor_Fantasy\Storm_UI_AOECursor_Fantasy.m3"/>
+    </CModel>
+    <CModel id="DiabloFearfulPresenceCastModel" parent="OneShotSpellFX">
+        <Model value="Assets\Effects\Storm_FX_Talent_ImposingPresence_AOE\Storm_FX_Talent_ImposingPresence_AOE.m3"/>
+    </CModel>
+    <CModel id="UnknownModel" Prefix="Units\" Race="Protoss">
+        <Model value="Assets\Models\Hero\storm_hero_diablo_prime.m3"/>
+        <RequiredAnims value="Assets\Models\Hero\storm_hero_diablo_prime_requiredanims.m3a"/>
+        <Lighting value="ZealotXPR"/>
+        <Occlusion value="Show"/>
+        <PlanetPanelCamera value="Star2CameraMid05"/>
+        <Radius value="0.375000"/>
+        <ScaleMax value="0.900000,0.900000,0.900000"/>
+        <ScaleMin value="0.900000,0.900000,0.900000"/>
+        <SelectionRadius value="0.416500"/>
+        <ShadowRadius value="0.416500"/>
+        <SquibTypeDefault value="Metal"/>
+        <TechPurchaseCamera value="Star2CameraMid05"/>
+        <UnitGlossaryCamera value="Star2CameraMid05"/>
+    </CModel>
+    <CShapeQuad id="DiabloLightningBreathQuad">
+        <Quad value="-1.5,-8.5,1.5,2"/>
+    </CShapeQuad>
+    <CMoverMissile id="FireStompMissileFireDevil">
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="-5"/>
+            <Speed value="15"/>
+            <MinSpeed value="11.25"/>
+            <MaxSpeed value="22.5"/>
+            <Outro value="-2,-1.5"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <MaxSpeed value="22.5"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+        <RotationIgnoredByUnit value="1"/>
+    </CMoverMissile>
+    <CMoverMissile id="FireStompReturnMissileFireDevil">
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="22.5"/>
+            <Speed value="7.5"/>
+            <MinSpeed value="11.25"/>
+            <MaxSpeed value="45"/>
+            <Timeout value="10"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+    </CMoverMissile>
+    <CMoverMissile id="DiabloOverpowerRedirectMover">
+        <Flags index="IgnoreMovementSuppression" value="1"/>
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="3200"/>
+            <Speed value="70"/>
+            <MaxSpeed value="70"/>
+            <ArrivalTestType value="3D"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+        <RotationIgnoredByUnit value="1"/>
+    </CMoverMissile>
+    <CMoverMissile id="DiabloOverpowerTargetMover">
+        <Flags index="IgnoreMovementSuppression" value="1"/>
+        <MotionPhases>
+            <Driver value="Throw"/>
+            <Acceleration value="400"/>
+            <ArrivalTestType value="Never"/>
+            <Outro value="1"/>
+            <Timeout value="0.25"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Throw"/>
+            <Acceleration value="600"/>
+            <ArrivalTestType value="Never"/>
+            <Outro value="1.05"/>
+            <Timeout value="0.125"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Ballistic"/>
+            <Gravity value="1000"/>
+            <RotationActorType value="Upright"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+            <FlightTime value="0.125"/>
+        </MotionPhases>
+        <RotationIgnoredByUnit value="1"/>
+    </CMoverMissile>
+    <CMoverMissile id="DiabloOverpowerCasterMover">
+        <Flags index="IgnoreMovementSuppression" value="1"/>
+        <MotionPhases>
+            <Driver value="Throw"/>
+            <Acceleration value="100"/>
+            <ArrivalTestType value="Never"/>
+            <Outro value="1"/>
+            <Timeout value="0.25"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Throw"/>
+            <Acceleration value="600"/>
+            <ArrivalTestType value="Never"/>
+            <Outro value="1.05"/>
+            <Timeout value="0.125"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Ballistic"/>
+            <Gravity value="1"/>
+            <RotationActorType value="Upright"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+            <FlightTime value="0.125"/>
+        </MotionPhases>
+        <RotationIgnoredByUnit value="1"/>
+    </CMoverMissile>
+    <CMoverMissile id="DiabloShadowChargeMissile">
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="175"/>
+            <Speed value="0"/>
+            <MaxSpeed value="300"/>
+            <ActorTracking value="Actual"/>
+            <RotationLaunchActorType value="LaunchToTarget"/>
+            <RotationActorType value="LookAtTarget2D"/>
+            <Timeout value="1"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+        <RestoreHeightDuration value="0.0625"/>
+    </CMoverMissile>
+    <CMoverMissile id="DiabloBlackSoulstoneMissileMover">
+        <MotionPhases>
+            <Driver value="Throw"/>
+            <Speed value="5"/>
+            <MaxSpeed value="5"/>
+            <ArrivalTestType value="Never"/>
+            <Outro value="0.5,3"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Speed value="15"/>
+            <MaxSpeed value="15"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+            <Overlays/>
+            <Overlays/>
+        </MotionPhases>
+    </CMoverMissile>
+    <CMoverMissile id="FireStompMissile">
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="-5"/>
+            <Speed value="10"/>
+            <MinSpeed value="7.5"/>
+            <MaxSpeed value="15"/>
+            <Outro value="-2,-1.5"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <MaxSpeed value="15"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+    </CMoverMissile>
+    <CMoverMissile id="FireStompReturnMissile">
+        <MotionPhases>
+            <Driver value="Guidance"/>
+            <Acceleration value="15"/>
+            <Speed value="5"/>
+            <MinSpeed value="7.5"/>
+            <MaxSpeed value="30"/>
+            <Timeout value="10"/>
+            <ThrowBandYaw value="-360,-360,-360,-360"/>
+            <ThrowBandPitch value="-360,-360,-360,-360"/>
+            <YawPitchRoll value="5759.6484"/>
+        </MotionPhases>
+    </CMoverMissile>
+    <CUnit id="DiabloBlackSoulstoneHeroMissile" parent="MISSILE_INVULNERABLE">
+        <Mover value="DiabloBlackSoulstoneMissileMover"/>
+    </CUnit>
+    <CUnit id="DiabloBlackSoulstoneNonHeroMissile" parent="MISSILE_INVULNERABLE">
+        <Mover value="DiabloBlackSoulstoneMissileMover"/>
+    </CUnit>
+    <CUnit id="DiabloFireStompReturnMissile" parent="MISSILE_INVULNERABLE">
+        <Mover value="FireStompReturnMissile"/>
+        <Sight value="3"/>
+        <FlagArray index="UseLineOfSight" value="1"/>
+        <BehaviorArray Link="DiabloFireStompHellfireTalentMissileTokenCounter"/>
+    </CUnit>
+    <CUnit id="DiabloFireStompMissile" parent="MISSILE_INVULNERABLE">
+        <Mover value="FireStompMissile"/>
+        <Sight value="3"/>
+        <FlagArray index="UseLineOfSight" value="1"/>
+        <BehaviorArray Link="DiabloFireStompHellfireTalentMissileTokenCounter"/>
+    </CUnit>
+    <CBehaviorBuff id="DiabloFireStompHellfireBuffBehavior">
+        <Face value="DiabloHellfire"/>
+        <Alignment value="Positive"/>
+        <BehaviorFlags index="Permanent" value="1"/>
+        <BehaviorFlags index="EnabledWhileDead" value="1"/>
+        <InfoIcon value="Assets\Textures\storm_ui_icon_diablo_firestomp.dds"/>
+        <DisableValidatorArray value="NotMounted"/>
+        <DisableValidatorArray value="CasterNotStasis"/>
+        <DisableValidatorArray value="SourceNotDead"/>
+        <DisableValidatorArray value="TargetNotSpecialDeathState"/>
+        <DisableValidatorArray value="NotCloaked"/>
+        <DisableValidatorArray value="DiabloFireStompHellfireHasMaximumSpellPowerBuffStacks"/>
+        <Period value="1"/>
+        <PeriodicEffect value="DiabloFireStompHellfireSearch"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloMalevolence">
+        <Alignment value="Positive"/>
+        <InfoIcon value="Assets\Textures\storm_ui_icon_talent_autoattack_damage.dds"/>
+        <MaxStackCount value="2"/>
+        <Duration value="6"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloFireStompHellfireSpellPower">
+        <Alignment value="Positive"/>
+        <Duration value="10"/>
+        <Face value="DiabloHellfireToken"/>
+        <BuffFlags index="RefreshStack" value="1"/>
+        <MaxStackCount value="10"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloBlackSoulstoneFeastOnFearPeriodicHealer">
+        <Alignment value="Positive"/>
+        <InfoIcon value="Assets\Textures\storm_ui_icon_diablo_blacksoulstone_var2.dds"/>
+        <Duration value="3"/>
+        <Period value="1"/>
+        <PeriodicEffect value="DiabloBlackSoulstoneFeastOnFearCreateHealer"/>
+        <PeriodicDisplayEffect value="DiabloBlackSoulstoneFeastOnFearCreateHealer"/>
+        <InitialEffect value="DiabloBlackSoulstoneFeastOnFearCreateHealer"/>
+        <RefreshEffect value="DiabloBlackSoulstoneFeastOnFearCreateHealer"/>
+    </CBehaviorBuff>
+    <CBehaviorUnitTracker id="DiabloFireStompMarkerMissileTracker"/>
+    <CBehaviorBuff id="ShadowChargeFullDurationCasterBehavior">
+        <RemoveValidatorArray value="CasterNotDazedOrDeadOrFearedOrPolymorphedOrRootedOrStasisOrStunnedExceptTimeStop"/>
+        <Modification>
+            <StateFlags index="SuppressCollision" value="1"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="FireStompReturnMissileSuicideBehavior">
+        <RemoveValidatorArray value="FireStompReturnMissileSuicideValidator"/>
+        <FinalEffect value="SuicideRemove"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="BlackSoulstone">
+        <Face value="DiabloBlackSoulstoneFace"/>
+        <Alignment value="Positive"/>
+        <BehaviorFlags index="Permanent" value="1"/>
+        <BehaviorFlags index="EnabledWhileDead" value="1"/>
+        <MaxStackCount value="100"/>
+        <InfoIcon value="Assets\Textures\storm_temp_war3_btnsoulgem.dds"/>
+        <Modification>
+            <VitalMaxAdditiveMultiplierArray index="Life" value="0.003"/>
+        </Modification>
+        <InfoFlags index="AlwaysUseGameText" value="1"/>
+        <SortIndex value="5"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloOverpowerCasterBehavior">
+        <Duration value="0.625"/>
+        <Modification>
+            <StateFlags index="SuppressAttack" value="1"/>
+        </Modification>
+        <FinalEffect value="HeroGenericMissileInterruptLaunchMissileSourceDelay"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloOverpowerPathableBehind">
+        <Duration value="0.5625"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeOverpowerCrueltyAttackSpeedBuff">
+        <Alignment value="Positive"/>
+        <MaxStackCount value="2"/>
+        <Duration value="7"/>
+        <Modification>
+            <AdditiveAttackSpeedFactor value="0.5"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="FireStompDummyBehavior">
+        <Duration value="0.0625"/>
+        <InitialEffect value="DiabloOverpowerDestroyInitialPersistent"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloFireStompReturnMissilePause">
+        <Duration value="0.5"/>
+        <Modification>
+            <ModifyFlags index="SuppressMoving" value="1"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="FireStompReturnMissileSearch">
+        <Period value="0.0625"/>
+        <PeriodicEffect value="FireStompReturnSearch"/>
+        <InitialEffect value="DiabloFireStompApplyReturnMissilePause"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloLightningBreathTarget">
+        <Alignment value="Negative"/>
+        <InfoIcon value="Assets\Textures\storm_btn_d3_wizard_shockpulse.dds"/>
+        <BehaviorCategories index="Permanent" value="1"/>
+        <Duration value="0.4375"/>
+        <Period value="0.2812"/>
+        <InitialEffect value="DiabloLightningBreathDamageSet"/>
+        <PeriodicEffect value="DiabloLightningBreathDamageSet"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloLightningBreathActive">
+        <DisableValidatorArray value="TargetNotTimeStopped"/>
+        <DisableValidatorArray value="TargetNotInDevouringMaw"/>
+        <RemoveValidatorArray value="TargetNotDead"/>
+        <BuffFlags index="Channeled" value="1"/>
+        <Duration value="12"/>
+        <Period value="0.1875"/>
+        <InitialEffect value="DiabloLightningBreathOffsetPersistent"/>
+        <PeriodicEffect value="DiabloLightningBreathOffsetPersistent"/>
+        <FinalEffect value="DiabloLightningBreathRemoveUnstoppableBehavior"/>
+        <Modification>
+            <StateFlags index="SuppressCloak" value="1"/>
+            <StateFlags index="Unstoppable" value="1"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="FireStompMissileSearch">
+        <Period value="0.0625"/>
+        <PeriodicEffect value="FireStompSearch"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeCasterPreUnitImpactBehavior">
+        <Alignment value="Positive"/>
+        <InfoIcon value="Assets\Textures\storm_temp_war3_btnghoulfrenzy.dds"/>
+        <RemoveValidatorArray value="CasterNotDeadOrStunnedOrRootedOrPolymorphedOrStasisOrDazedOrFearedExceptTimeStop"/>
+        <BuffFlags index="Channeled" value="1"/>
+        <BuffFlags index="UpdateDurationWhileDisabled" value="1"/>
+        <Duration value="1"/>
+        <Modification>
+            <StateFlags index="SuppressCollision" value="1"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeFullDurationCasterBehavior">
+        <RemoveValidatorArray value="CasterNotDeadOrStunnedOrRootedOrPolymorphedOrStasisOrDazedOrFearedExceptTimeStop"/>
+        <Modification>
+            <ModifyFlags index="SuppressTurning" value="1"/>
+            <StateFlags index="SuppressCollision" value="1"/>
+        </Modification>
+        <Duration value="2"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeStunLimiter">
+        <EditorCategories value="AbilityorEffectType:Units"/>
+        <Duration value="0.0625"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeTargetImpactedBehavior">
+        <Duration value="0.0625"/>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeCasterPostUnitImpactChargeBehavior">
+        <InfoIcon value="Assets\Textures\storm_temp_war3_btnghoulfrenzy.dds"/>
+        <RemoveValidatorArray value="DiabloShadowChargeDiabloKnockbackValidator"/>
+        <BuffFlags index="UpdateDurationWhileDisabled" value="1"/>
+        <Duration value="0.1875"/>
+        <FinalEffect value="DiabloShadowChargeIssueAttackOrder"/>
+        <ExpireEffect value="DiabloShadowChargeIssueAttackOrder"/>
+        <Modification MoveSpeedMaximum="27" MoveSpeedMinimum="27">
+            <BehaviorCategoriesDisable index="Slow" value="1"/>
+            <BehaviorCategoriesDisable index="Fast" value="1"/>
+        </Modification>
+    </CBehaviorBuff>
+    <CBehaviorBuff id="DiabloShadowChargeCasterPostChargeBehaviorChannel">
+        <RemoveValidatorArray value="DiabloShadowChargeCasterHasPostChargeBehavior"/>
+        <BuffFlags index="Channeled" value="1"/>
+        <FinalEffect value="DiabloShadowChargeFullDurationCasterBehaviorRemoveBehavior"/>
+    </CBehaviorBuff>
+</Catalog>
